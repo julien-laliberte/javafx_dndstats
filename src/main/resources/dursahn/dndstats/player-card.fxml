@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="dursahn.dndstats.controllers.PlayerCardController"
+      prefHeight="150.0" prefWidth="400.0"
+      spacing="5"
+      alignment="TOP_CENTER"
+      styleClass="player-card">
+    <Label fx:id="characterName" text="Fenrick Damascus"/>
+    <HBox spacing="5" alignment="TOP_CENTER">
+        <Label fx:id="characterClass" text="Bloodhunter"/>
+        <Label fx:id="characterSubClass" text="Order of Lycan"/>
+        <Label fx:id="characterLevel" text="5"/>
+    </HBox>
+    <MFXButton text="Edit" onAction="#handleCharacterEdit"/>
+</VBox>

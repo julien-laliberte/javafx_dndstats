@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="dursahn.dndstats.controllers.CharacterAddController"
+      prefHeight="400.0" prefWidth="375.0"
+      spacing="10" alignment="TOP_CENTER">
+
+    <!--Add player-->
+    <VBox prefWidth="600.0">
+        <Label text="Nouveau personnage"/>
+        <HBox spacing="5">
+            <Label text="Nom" minWidth="100"/>
+            <TextField fx:id="playerName" promptText="Dursahn Frey" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Classe" minWidth="100"/>
+            <TextField fx:id="playerClass" promptText="Paladin" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Sous classe" minWidth="100"/>
+            <TextField fx:id="playerSubclass" promptText="Oath of the Raven Queen" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Niveau" minWidth="100"/>
+            <TextField fx:id="playerClassLevel" promptText="5" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Classe" minWidth="100"/>
+            <TextField fx:id="playerClass2" promptText="Warlock" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Sous classe" minWidth="100"/>
+            <TextField fx:id="playerSubclass2" promptText="Hexblade" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Niveau" minWidth="100"/>
+            <TextField fx:id="playerClass2Level" promptText="3" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Color (HEX)" minWidth="100"/>
+            <TextField fx:id="playerColor" promptText="11004E" minWidth="250"/>
+        </HBox>
+
+        <HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <MFXButton text="Ajouter Personnage" onAction="#handleAddPlayer" prefWidth="100.0"/>
+        </HBox>
+    </VBox>
+
+    <!--Add npc-->
+    <VBox prefWidth="600.0">
+        <Label text="Nouveau NPC"/>
+        <HBox spacing="5">
+            <Label text="Nom" minWidth="100"/>
+            <TextField fx:id="npcName" promptText="Brothorr Runehammer" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Classe" minWidth="100"/>
+            <TextField fx:id="npcClass" promptText="Guerrier" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Sous classe" minWidth="100"/>
+            <TextField fx:id="npcSubclass" promptText="Rune Knight" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Niveau" minWidth="100"/>
+            <TextField fx:id="npcClassLevel" promptText="10" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Classe" minWidth="100"/>
+            <TextField fx:id="npcClass2" promptText="" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Sous classe" minWidth="100"/>
+            <TextField fx:id="npcSubclass2" promptText="" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Niveau" minWidth="100"/>
+            <TextField fx:id="npcClass2Level" promptText="" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Color (HEX)" minWidth="100"/>
+            <TextField fx:id="npcColor" promptText="11004E" minWidth="250"/>
+        </HBox>
+        <HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <MFXButton text="Ajouter NPC" onAction="#handleAddNpc" prefWidth="100.0"/>
+        </HBox>
+    </VBox >
+
+    <!--Add dm-->
+    <VBox prefWidth="600.0">
+        <Label text="Nouveau DM" />
+        <HBox spacing="5">
+            <Label text="Nom" minWidth="100"/>
+            <TextField fx:id="dmNom" promptText="Jessica " minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Surnom" minWidth="100"/>
+            <TextField fx:id="dmSurnom" promptText="Déesse de merde" minWidth="250"/>
+        </HBox>
+
+        <HBox spacing="5">
+            <Label text="Color (HEX)" minWidth="100"/>
+            <TextField fx:id="dmColor" promptText="11004E" minWidth="250"/>
+        </HBox>
+        <HBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <MFXButton text="Ajouter DM" onAction="#handleAddDm" prefWidth="100.0"/>
+        </HBox>
+    </VBox>
+</VBox>

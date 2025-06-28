@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="dursahn.dndstats.controllers.DmCardController"
+      prefHeight="150.0" prefWidth="400.0"
+      spacing="5"
+      alignment="TOP_CENTER"
+      styleClass="player-card">
+    <Label fx:id="dmName" text="Fenrick Damascus"/>
+    <HBox spacing="5" alignment="TOP_CENTER">
+        <Label fx:id="dmSurname" text="Bloodhunter"/>
+    </HBox>
+    <MFXButton text="Edit" onAction="#handleDmEdit"/>
+</VBox>
