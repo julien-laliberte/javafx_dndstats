@@ -1,6 +1,21 @@
 # javafx_dndstats
 Application Java FX pour les session de Donjon et Dragons. Essentiellement inspiré de mon site et l'application To do List
 
+## Deuxième commit
+  Modifications
+    Fusion des Contollers, DTOs et views pour les personnages et les npc pour devenir un seul fichier : Character
+    
+  Fait
+    Boîte d'ajout des personnages
+
+  À faire
+    Édition de la game
+    Page d'édition des personnage, NPC et DM
+    Édition des personnage, NPC et DM
+    Fichier de sauvegarde des personnages, NPC et DM
+    Logique des calculs
+    Logique des contrôleurs
+
 ## Premier commit
   Fait
     Squelette du main
