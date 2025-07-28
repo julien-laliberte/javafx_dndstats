@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class Main extends Application {
     @Override
@@ -23,7 +22,7 @@ public class Main extends Application {
                 .setDeploy(true)
                 .setResolveAssets(true).build().setGlobal();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/dursahn/dndstats/main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/dursahn/dndstats/views/main.fxml"));
 
         Scene scene = new Scene(root);
 //        String css = Objects.requireNonNull(this.getClass().getResource("/dursahn/todoapp/style.css")).toExternalForm();

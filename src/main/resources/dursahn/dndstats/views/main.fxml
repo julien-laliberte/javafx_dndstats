@@ -111,17 +111,17 @@
                 VBox.vgrow="ALWAYS">
         <VBox spacing="10">
             <!-- Player Section-->
-            <FlowPane fx:id="playerList" hgap="10" vgap="10" prefWrapLength="1800" alignment="TOP_CENTER">
+            <FlowPane fx:id="playerListFlowPane" hgap="10" vgap="10" prefWrapLength="1800" alignment="TOP_CENTER">
 
             </FlowPane>
 
             <!-- NPC Section-->
-            <FlowPane fx:id="npcList" hgap="10" vgap="10" prefWrapLength="1800" alignment="TOP_CENTER">
+            <FlowPane fx:id="npcListFlowPane" hgap="10" vgap="10" prefWrapLength="1800" alignment="TOP_CENTER">
 
             </FlowPane>
 
             <!-- DM Section-->
-            <FlowPane fx:id="dmList" hgap="10" vgap="10" prefWrapLength="1800" alignment="TOP_CENTER">
+            <FlowPane fx:id="dmListFlowPane" hgap="10" vgap="10" prefWrapLength="1800" alignment="TOP_CENTER">
 
             </FlowPane>
         </VBox>
