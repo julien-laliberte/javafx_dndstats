@@ -1,7 +1,17 @@
 package dursahn.dndstats.dto;
 
-public class CharacterDTO {
-    private String name;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.UUID;
+
+public class CharacterDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private String id;
+    private String firstName;
+    private String lastName;
     private String _class;
     private String subclass;
     private Integer classLevel;
@@ -10,9 +20,11 @@ public class CharacterDTO {
     private Integer classLevel2;
     private String color;
 
-    public CharacterDTO(String name, String _class, String subclass, Integer classLevel,
+    public CharacterDTO(String firstName, String lastName, String _class, String subclass, Integer classLevel,
                         String class2, String subclass2, Integer classLevel2, String color) {
-        this.name = name;
+        this.id = UUID.randomUUID().toString();
+        this.firstName = firstName;
+        this.lastName = lastName;
         this._class = _class;
         this.subclass = subclass;
         this.classLevel = classLevel;
@@ -22,12 +34,29 @@ public class CharacterDTO {
         this.color = color;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String toString() {
+        return "CharacterDTO{firstName='" + firstName + "', lastName='" + lastName + "', class='" + _class + "'}";
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String get_class() {
@@ -85,4 +114,6 @@ public class CharacterDTO {
     public void setColor(String color) {
         this.color = color;
     }
+
+
 }

@@ -16,6 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class MainController {
 
     //region Variables
@@ -56,11 +58,14 @@ public class MainController {
         npcList = new NpcList();
         dmList = new DmList();
 
-        addCharacter("Fenrick Damascus", "Bloodhunter", "Order of Lycan", 6,
-                null, null, null, null);
-        addNpc("Alyssa Vae'Lorynn", "Warlock", "Hexblade",5,
-                null, null, null, null);
-        addDm("Jessica", "Déesse de merde :D");
+//        addCharacter("Fenrick", "Damascus", "Bloodhunter", "Order of Lycan", 6,
+//                null, null, null, "2f0086");
+//        addNpc("Alyssa",  "Vae'Lorynn", "Warlock", "Hexblade",6,
+//                null, null, null, "883289");
+        addDm("Jessica", "Déesse de merde :D", "00ffff");
+
+        loadCharacters();
+
     }
 
     //region Buttons
@@ -90,8 +95,8 @@ public class MainController {
     }
 
     public void handleEditGame(ActionEvent actionEvent) {
-        addCharacter("Fenrick Damascus", "Bloodhunter", "Order of Lycan", 6
-        , null, null, null, null);
+        addCharacter("Fenrick",  "Damascus", "Bloodhunter", "Order of Lycan", 6
+        , null, null, null, "2f0086");
     }
 
     public void handleEditCharacters(ActionEvent actionEvent) {
@@ -99,31 +104,31 @@ public class MainController {
 
     //endregion
     //region Characters interface
-    public void addCharacterFromDialog(String name, String _class, String subclass, Integer level,
+    public void addCharacterFromDialog(String firstMame, String lastName, String _class, String subclass, Integer level,
                                        String class2, String subclass2, Integer classLevel2, String color){
-        addCharacter(name, _class, subclass, level,
+        addCharacter(firstMame, lastName, _class, subclass, level,
                 class2, subclass2, classLevel2, color);
     }
 
-    private void addCharacter(String name, String _class, String subclass, Integer level,
+    private void addCharacter(String firstMame, String lastName, String _class, String subclass, Integer level,
                               String class2, String subclass2, Integer classLevel2, String color){
         CharacterDTO newCharacter = new CharacterDTO(
-                name, _class, subclass, level,
+                firstMame, lastName, _class, subclass, level,
                 class2, subclass2, classLevel2, color);
         playerList.addPlayer(newCharacter);
         displayCharacter(newCharacter, playerListFlowPane);
     }
 
-    public void addNpcFromDialog(String name, String _class, String subclass, Integer level,
+    public void addNpcFromDialog(String firstMame, String lastName, String _class, String subclass, Integer level,
                                  String class2, String subclass2, Integer classLevel2, String color){
-        addNpc(name, _class, subclass, level,
+        addNpc(firstMame, lastName, _class, subclass, level,
                 class2, subclass2, classLevel2, color);
     }
 
-    private void addNpc(String name, String _class, String subclass, Integer level,
+    private void addNpc(String firstMame, String lastName, String _class, String subclass, Integer level,
                         String class2, String subclass2, Integer classLevel2, String color){
         CharacterDTO newCharacter = new CharacterDTO(
-                name, _class, subclass, level,
+                firstMame, lastName, _class, subclass, level,
                 class2, subclass2, classLevel2, color);
         npcList.addNpc(newCharacter);
         displayCharacter(newCharacter, npcListFlowPane);
@@ -136,14 +141,18 @@ public class MainController {
             VBox playerCard = loader.load();
             CharacterCardController controller = loader.getController();
             controller.setCharacterDetails(
-                    character.getName(),
+                    character.getFirstName(),
+                    character.getLastName(),
                     character.get_class(),
                     character.getSubclass(),
                     character.getClassLevel(),
                     character.getClass2(),
                     character.getSubclass2(),
-                    character.getClassLevel2()
+                    character.getClassLevel2(),
+                    character.getId()
             );
+            playerCard.setStyle("-fx-background-color: #" + character.getColor() +"1A;" +
+                    "-fx-border-color: #" + character.getColor());
             targetPane.getChildren().add(playerCard);
 
         } catch (Exception e) {
@@ -151,8 +160,8 @@ public class MainController {
         }
     }
 
-    public void addDm(String name, String surname){
-        DmDTO newDm = new DmDTO(name, surname);
+    public void addDm(String name, String surname, String color){
+        DmDTO newDm = new DmDTO(name, surname, color);
         dmList.addDM(newDm);
         displayDm(newDm);
     }
@@ -167,10 +176,25 @@ public class MainController {
                     dmDTO.getName(),
                     dmDTO.getSurname()
             );
-
+            dmCard.setStyle("-fx-background-color: #" + dmDTO.getColor() +"1A;" +
+                    "-fx-border-color: #" + dmDTO.getColor());
             dmListFlowPane.getChildren().add(dmCard);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void loadCharacters(){
+        List<CharacterDTO> players = playerList.getPlayers();
+        List<CharacterDTO> npcs = npcList.getNpc();
+        //List<DmDTO> dm;
+
+        for(CharacterDTO player: players){
+            displayCharacter(player, playerListFlowPane);
+        }
+
+        for(CharacterDTO npc: npcs){
+            displayCharacter(npc, npcListFlowPane);
         }
     }
     //endregion

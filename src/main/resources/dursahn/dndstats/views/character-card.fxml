@@ -7,13 +7,15 @@
 <?import javafx.scene.layout.*?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="dursahn.dndstats.controllers.CharacterCardController"
-      prefHeight="150.0" prefWidth="400.0"
+      minHeight="150.0" minWidth="400.0"
       spacing="5"
       alignment="TOP_CENTER"
-      styleClass="player-card">
+      styleClass="character-card">
     <Label fx:id="characterName" text="Fenrick Damascus"/>
     <HBox spacing="5" alignment="TOP_CENTER">
         <Label fx:id="characterClass" text="Bloodhunter"/>
@@ -24,6 +26,51 @@
         <Label fx:id="characterClass2" text="Bloodhunter"/>
         <Label fx:id="characterSubClass2" text="Order of Lycan"/>
         <Label fx:id="characterLevel2" text="5"/>
+    </HBox>
+    <HBox spacing="10">
+        <ImageView fx:id="imageView"/>
+        <VBox>
+            <HBox>
+                <Label text="Dégât fait: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Dégât reçu: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Soins fait: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Soins reçu: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Soins personnels: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Coups critiques: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Échecs critiques: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Contrôle: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Ennemis tués: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="KO's: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+        </VBox>
     </HBox>
     <MFXButton text="Edit" onAction="#handleCharacterEdit"/>
 </VBox>

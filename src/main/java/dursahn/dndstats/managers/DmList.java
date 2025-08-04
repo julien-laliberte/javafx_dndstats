@@ -1,7 +1,6 @@
 package dursahn.dndstats.managers;
 
 import dursahn.dndstats.dto.DmDTO;
-import dursahn.dndstats.dto.PlayerDTO;
 
 import java.util.ArrayList;
 import java.util.List;

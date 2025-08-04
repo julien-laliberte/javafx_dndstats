@@ -18,7 +18,11 @@
         <Label text="Nouveau personnage"/>
         <HBox spacing="5">
             <Label text="Nom" minWidth="100"/>
-            <TextField fx:id="characterName" promptText="Dursahn Frey" minWidth="250"/>
+            <TextField fx:id="characterFirstName" promptText="Dursahn" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Nom" minWidth="100"/>
+            <TextField fx:id="characterLastName" promptText="Frey" minWidth="250"/>
         </HBox>
         <HBox spacing="5">
             <Label text="Classe" minWidth="100"/>

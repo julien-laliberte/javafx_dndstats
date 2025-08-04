@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
     @Override
@@ -25,8 +26,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/dursahn/dndstats/views/main.fxml"));
 
         Scene scene = new Scene(root);
-//        String css = Objects.requireNonNull(this.getClass().getResource("/dursahn/todoapp/style.css")).toExternalForm();
-//        scene.getStylesheets().add(css);
+        String css = Objects.requireNonNull(this.getClass().getResource("/dursahn/dndstats/css/card.css")).toExternalForm();
+        scene.getStylesheets().add(css);
         scene.setFill(Color.TRANSPARENT);
 
         stage.setTitle("Donjon & Dragon Game stats");

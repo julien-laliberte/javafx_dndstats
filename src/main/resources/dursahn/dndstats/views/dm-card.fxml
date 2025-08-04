@@ -7,16 +7,54 @@
 <?import javafx.scene.layout.*?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 
+<?import javafx.scene.image.ImageView?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="dursahn.dndstats.controllers.DmCardController"
       prefHeight="150.0" prefWidth="400.0"
       spacing="5"
       alignment="TOP_CENTER"
-      styleClass="player-card">
-    <Label fx:id="dmName" text="Fenrick Damascus"/>
+      styleClass="character-card">
+    <Label fx:id="dmName" text="Jessica"/>
     <HBox spacing="5" alignment="TOP_CENTER">
-        <Label fx:id="dmSurname" text="Bloodhunter"/>
+        <Label fx:id="dmSurname" text="Déesse de merde :D"/>
+    </HBox>
+    <HBox spacing="10">
+        <ImageView fx:id="imageView"/>
+        <VBox>
+            <HBox>
+                <Label text="Dégât fait: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Dégât reçu: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Soins personnels: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Coups critiques: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Échecs critiques: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Contrôle: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Ennemis perdus: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+            <HBox>
+                <Label text="Joueurs mis KO's: "/>
+                <Label fx:id="" text="0"/>
+            </HBox>
+        </VBox>
     </HBox>
     <MFXButton text="Edit" onAction="#handleDmEdit"/>
 </VBox>

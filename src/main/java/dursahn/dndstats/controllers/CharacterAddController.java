@@ -1,14 +1,22 @@
 package dursahn.dndstats.controllers;
 
+import dursahn.dndstats.dto.CharacterDTO;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javax.swing.text.html.parser.Parser;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class CharacterAddController {
     //region Variables
-    public TextField characterName;
+    public TextField characterFirstName;
+    public TextField characterLastName;
     public TextField characterClass;
     public TextField characterSubclass;
     public TextField characterClassLevel;
@@ -29,7 +37,8 @@ public class CharacterAddController {
     }
 
     public void handleAddPlayer(ActionEvent actionEvent) {
-        String playerName = characterName.getText();
+        String playerFirstName = characterFirstName.getText();
+        String playerLastName = characterLastName.getText();
         String playerClass = characterClass.getText();
         String playerSubclass = characterSubclass.getText();
         Integer playerClassLevel = Integer.parseInt(characterClassLevel.getText());
@@ -46,8 +55,21 @@ public class CharacterAddController {
         }
         String playerColor = characterColor.getText();
 
+        CharacterDTO characterDTO = new CharacterDTO(
+                playerFirstName,
+                playerLastName,
+                playerClass,
+                playerSubclass,
+                playerClassLevel,
+                playerClass2,
+                playerSubclass2,
+                playerClassLevel2,
+                playerColor
+        );
+
         mainController.addCharacterFromDialog(
-                playerName,
+                playerFirstName,
+                playerLastName,
                 playerClass,
                 playerSubclass,
                 playerClassLevel,
@@ -60,7 +82,8 @@ public class CharacterAddController {
     }
 
     public void handleAddNpc(ActionEvent actionEvent) {
-        String NpcName = characterName.getText();
+        String NpcFirstName = characterFirstName.getText();
+        String NpcLastName = characterLastName.getText();
         String NpcClass = characterClass.getText();
         String NpcSubclass = characterSubclass.getText();
         Integer NpcClassLevel = Integer.parseInt(characterClassLevel.getText());
@@ -77,8 +100,20 @@ public class CharacterAddController {
             NpcClassLevel2 = null;
         }
         String NpcColor = characterColor.getText();
+        CharacterDTO characterDTO = new CharacterDTO(
+                NpcFirstName,
+                NpcLastName,
+                NpcClass,
+                NpcSubclass,
+                NpcClassLevel,
+                NpcClass2,
+                NpcSubclass2,
+                NpcClassLevel2,
+                NpcColor
+        );
         mainController.addNpcFromDialog(
-                NpcName,
+                NpcFirstName,
+                NpcLastName,
                 NpcClass,
                 NpcSubclass,
                 NpcClassLevel,
@@ -96,7 +131,7 @@ public class CharacterAddController {
     }
 
     private void closeView(){
-        Stage stage = (Stage) characterName.getScene().getWindow();
+        Stage stage = (Stage) characterFirstName.getScene().getWindow();
         stage.close();
     }
 }

@@ -1,14 +1,21 @@
 package dursahn.dndstats.dto;
 
-public class DmDTO {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class DmDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private String name;
     private String surname;
     private String color;
 
-    public DmDTO(String name, String surname) {
+    public DmDTO(String name, String surname, String color) {
         this.name = name;
         this.surname = surname;
-        this.color = null;
+        this.color = color;
     }
 
     public String getName() {
