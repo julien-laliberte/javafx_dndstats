@@ -1,6 +1,10 @@
 # javafx_dndstats
 Application Java FX pour les session de Donjon et Dragons. Essentiellement inspiré de mon site et l'application To do List
 
+## Troisième commit
+  Fait
+    Fichier de sauvegarde des joueurs et NPCs et ajout des personnages dans le fichier
+
 ## Deuxième commit
   Modifications
     Fusion des Contollers, DTOs et views pour les personnages et les npc pour devenir un seul fichier : Character
