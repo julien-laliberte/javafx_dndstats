@@ -31,8 +31,9 @@ application {
 }
 
 javafx {
-    version = "21"
+    version = "21.0.7" // Aligner avec votre SDK local
     modules = listOf("javafx.controls", "javafx.fxml")
+    sdk = "../javafx-sdk-21.0.7" // Chemin relatif sous forme de String
 }
 
 dependencies {

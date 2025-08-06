@@ -62,7 +62,7 @@ public class MainController {
 //                null, null, null, "2f0086");
 //        addNpc("Alyssa",  "Vae'Lorynn", "Warlock", "Hexblade",6,
 //                null, null, null, "883289");
-        addDm("Jessica", "Déesse de merde :D", "00ffff");
+       addDm("Jessica", "Déesse de merde :D", "00ffff");
 
         loadCharacters();
 
@@ -76,7 +76,7 @@ public class MainController {
     private void showAddDialog(){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/dursahn/dndstats/views/character_add_dialog.fxml"));
+                    "/dursahn/dndstats/views/add_character.fxml"));
             VBox dialogPane = loader.load();
             CharacterAddController dialogController = loader.getController();
             dialogController.setMainController(this);
@@ -137,8 +137,8 @@ public class MainController {
     private void displayCharacter(CharacterDTO character, FlowPane targetPane){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/dursahn/dndstats/views/character-card.fxml"));
-            VBox playerCard = loader.load();
+                    "/dursahn/dndstats/views/character_card.fxml"));
+            VBox characterCard = loader.load();
             CharacterCardController controller = loader.getController();
             controller.setCharacterDetails(
                     character.getFirstName(),
@@ -151,9 +151,11 @@ public class MainController {
                     character.getClassLevel2(),
                     character.getId()
             );
-            playerCard.setStyle("-fx-background-color: #" + character.getColor() +"1A;" +
+            controller.setRootNode(characterCard);
+            controller.setParentFlowPane(targetPane);
+            characterCard.setStyle("-fx-background-color: #" + character.getColor() +"1A;" +
                     "-fx-border-color: #" + character.getColor());
-            targetPane.getChildren().add(playerCard);
+            targetPane.getChildren().add(characterCard);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -169,7 +171,7 @@ public class MainController {
     private void displayDm(DmDTO dmDTO){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                    "/dursahn/dndstats/views/dm-card.fxml"));
+                    "/dursahn/dndstats/views/dm_card.fxml"));
             VBox dmCard = loader.load();
             DmCardController controller = loader.getController();
             controller.setDmDetails(

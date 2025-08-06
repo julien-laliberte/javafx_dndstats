@@ -4,6 +4,8 @@ import dursahn.dndstats.dto.CharacterDTO;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class NpcList implements Serializable {
@@ -30,6 +32,38 @@ public class NpcList implements Serializable {
 
     public void removeNpc(CharacterDTO character){
         npcs.remove(character);
+    }
+
+    public void updateNpcs(CharacterDTO udpate) throws FileNotFoundException {
+        for(int i=0 ; i < npcs.size(); i++){
+            CharacterDTO current = npcs.get(i);
+            if(current.getId().equals(udpate.getId())){
+                current.setFirstName(udpate.getFirstName());
+                current.setLastName(udpate.getLastName());
+                current.set_class(udpate.get_class());
+                current.setSubclass(udpate.getSubclass());
+                current.setClassLevel(udpate.getClassLevel());
+                current.setColor(udpate.getColor());
+                if(udpate.getClass2() != null) {
+                    current.setClass2(udpate.getClass2());
+                    current.setSubclass2(udpate.getSubclass2());
+                    current.setClassLevel2(udpate.getClassLevel2());
+                }
+            }
+        }
+        sortNpcsByFirstName();
+        saveNPCS();
+    }
+
+    private void sortNpcsByFirstName() {
+        Collections.sort(
+                npcs, new Comparator<CharacterDTO>() {
+                    @Override
+                    public int compare(CharacterDTO o1, CharacterDTO o2) {
+                        return o1.getFirstName().compareTo(o2.getFirstName());
+                    }
+                }
+        );
     }
 
     private void saveNPCS(){
@@ -68,4 +102,17 @@ public class NpcList implements Serializable {
         }
     }
 
+    public CharacterDTO getNpcById(String id){
+        for(CharacterDTO npc: npcs){
+            if(npc.getId().equals(id)){
+                return npc;
+            }
+        }
+        return null;
+    }
+
+    public void deleteNpc(CharacterDTO character) {
+        npcs.remove(character);
+        saveNPCS();
+    }
 }

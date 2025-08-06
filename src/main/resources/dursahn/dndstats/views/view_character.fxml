@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="dursahn.dndstats.controllers.ViewCharacterController"
+      prefHeight="350.0" prefWidth="375.0"
+      spacing="5" alignment="TOP_CENTER">
+
+    <!-- Dialog Title -->
+    <Label text="Character edit" styleClass="dialog-title" />
+        <Label text="Éditer le personnage"/>
+        <HBox spacing="5">
+            <Label text="Nom" minWidth="100"/>
+            <TextField fx:id="characterFirstName" promptText="Dursahn" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Nom" minWidth="100"/>
+            <TextField fx:id="characterLastName" promptText="Frey" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Classe" minWidth="100"/>
+            <TextField fx:id="characterClass" promptText="Paladin" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Sous classe" minWidth="100"/>
+            <TextField fx:id="characterSubclass" promptText="Oath of the Raven Queen" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Niveau" minWidth="100"/>
+            <TextField fx:id="characterClassLevel" promptText="5" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Classe" minWidth="100"/>
+            <TextField fx:id="characterClass2" promptText="Warlock" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Sous classe" minWidth="100"/>
+            <TextField fx:id="characterSubclass2" promptText="Hexblade" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Niveau" minWidth="100"/>
+            <TextField fx:id="characterClass2Level" promptText="3" minWidth="250"/>
+        </HBox>
+        <HBox spacing="5">
+            <Label text="Color (HEX)" minWidth="100"/>
+            <TextField fx:id="characterColor" promptText="11004E" minWidth="250"/>
+        </HBox>
+
+    <!-- Update and Cancel Buttons -->
+    <HBox spacing="20" alignment="CENTER_RIGHT">
+        <MFXButton text="Delete" onAction="#handleDelete" styleClass="delete-button" prefWidth="80" prefHeight="30"/>
+        <Region HBox.hgrow="ALWAYS" />
+        <MFXButton text="Cancel" onAction="#handleCancel" styleClass="cancel-button" prefWidth="80" prefHeight="30"/>
+        <MFXButton text="Update" onAction="#handleUpdate" styleClass="update-button" prefWidth="80" prefHeight="30"/>
+    </HBox>
+</VBox>

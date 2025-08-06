@@ -1,0 +1,74 @@
+package dursahn.dndstats.controllers;
+
+import dursahn.dndstats.dto.CharacterDTO;
+import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
+
+public class ViewCharacterController {
+    public TextField characterFirstName;
+    public TextField characterLastName;
+    public TextField characterClass;
+    public TextField characterSubclass;
+    public TextField characterClassLevel;
+    public TextField characterClass2;
+    public TextField characterSubclass2;
+    public TextField characterClass2Level;
+    public TextField characterColor;
+
+    private CharacterDTO character;
+    private CharacterCardController mainController;
+
+    public void setCharacterDetail(CharacterDTO character, CharacterCardController mainController){
+        this.character = character;
+        this.mainController = mainController;
+
+        characterFirstName.setText(character.getFirstName());
+        characterLastName.setText(character.getLastName());
+        characterClass.setText(character.get_class());
+        characterSubclass.setText(character.getSubclass());
+        characterClassLevel.setText(character.getClassLevel().toString());
+        characterColor.setText(character.getColor());
+        if(character.getClass2() != null){
+            characterClass2.setText(character.getClass2());
+            characterSubclass2.setText(character.getSubclass2());
+            characterClass2Level.setText(character.getClassLevel2().toString());
+        }
+    }
+
+
+
+    public void handleDelete(ActionEvent actionEvent) {
+        mainController.deleteCharacter(character);
+        closeDialog();
+    }
+
+    public void handleCancel(ActionEvent actionEvent) {
+        closeDialog();
+    }
+
+    public void handleUpdate(ActionEvent actionEvent) throws FileNotFoundException {
+        character.setFirstName(characterFirstName.getText());
+        character.setLastName(characterLastName.getText());
+        character.set_class(characterClass.getText());
+        character.setSubclass(characterSubclass.getText());
+        character.setClassLevel(Integer.parseInt(characterClassLevel.getText()));
+        character.setColor(characterColor.getText());
+
+        if(!characterClass2.getText().isEmpty()){
+            character.setClass2(characterClass2.getText());
+            character.setSubclass2(characterSubclass2.getText());
+            character.setClassLevel2(Integer.parseInt(characterClass2Level.getText()));
+        }
+        mainController.updateCharacter(character);
+
+        closeDialog();
+    }
+
+    private void closeDialog() {
+        Stage stage = (Stage) characterFirstName.getScene().getWindow();
+        stage.close();
+    }
+}
