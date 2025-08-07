@@ -21,39 +21,57 @@
     </HBox>
     <HBox spacing="10">
         <ImageView fx:id="imageView"/>
-        <VBox>
-            <HBox>
-                <Label text="Dégât fait: "/>
-                <Label fx:id="" text="0"/>
-            </HBox>
-            <HBox>
-                <Label text="Dégât reçu: "/>
-                <Label fx:id="" text="0"/>
-            </HBox>
-            <HBox>
-                <Label text="Soins personnels: "/>
-                <Label fx:id="" text="0"/>
-            </HBox>
-            <HBox>
-                <Label text="Coups critiques: "/>
-                <Label fx:id="" text="0"/>
-            </HBox>
-            <HBox>
-                <Label text="Échecs critiques: "/>
-                <Label fx:id="" text="0"/>
-            </HBox>
-            <HBox>
-                <Label text="Contrôle: "/>
-                <Label fx:id="" text="0"/>
-            </HBox>
-            <HBox>
-                <Label text="Ennemis perdus: "/>
-                <Label fx:id="" text="0"/>
-            </HBox>
-            <HBox>
-                <Label text="Joueurs mis KO's: "/>
-                <Label fx:id="" text="0"/>
-            </HBox>
+        <VBox spacing="5">
+            <VBox>
+                <HBox>
+                    <Label text="Dégât fait: "/>
+                    <Label fx:id="damageDone" text="0"/>
+                </HBox>
+                <HBox>
+                    <Label text="Dégât reçu: "/>
+                    <Label fx:id="damageReceived" text="0"/>
+                </HBox>
+            </VBox>
+            <VBox>
+                <HBox>
+                    <Label text="Soins personnels: "/>
+                    <Label fx:id="personalHeal" text="0"/>
+                </HBox>
+            </VBox>
+            <VBox>
+                <HBox>
+                    <Label text="Coups critiques: "/>
+                    <Label fx:id="critical" text="0"/>
+                </HBox>
+                <HBox>
+                    <Label text="Échecs critiques: "/>
+                    <Label fx:id="failure" text="0"/>
+                </HBox>
+            </VBox>
+            <VBox>
+                <HBox>
+                    <Label text="Minions contrôlés: "/>
+                    <Label fx:id="minionControlled" text="0"/>
+                </HBox>
+                <HBox>
+                    <Label text="Minions perdus: "/>
+                    <Label fx:id="minionLost" text="0"/>
+                </HBox>
+                <HBox>
+                    <Label text="Boss perdus: "/>
+                    <Label fx:id="bossLost" text="0"/>
+                </HBox>
+            </VBox>
+            <VBox>
+                <HBox>
+                    <Label text="Joueurs contrôlés: "/>
+                    <Label fx:id="playersControlled" text="0"/>
+                </HBox>
+                <HBox>
+                    <Label text="Joueurs mis KO's: "/>
+                    <Label fx:id="playersKOs" text="0"/>
+                </HBox>
+            </VBox>
         </VBox>
     </HBox>
     <MFXButton text="Edit" onAction="#handleDmEdit"/>

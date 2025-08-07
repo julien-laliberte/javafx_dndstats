@@ -19,37 +19,49 @@ import java.util.Objects;
 
 public class CharacterCardController {
 
-    public Label characterName;
-    public Label characterClass;
-    public Label characterSubClass;
-    public Label characterLevel;
-    public Label characterClass2;
-    public Label characterSubClass2;
-    public Label characterLevel2;
-    public ImageView imageView;
-
+    //region FXML Variables
+    @FXML public Label characterName;
+    @FXML public Label characterClass;
+    @FXML public Label characterSubClass;
+    @FXML public Label characterLevel;
+    @FXML public Label characterClass2;
+    @FXML public Label characterSubClass2;
+    @FXML public Label characterLevel2;
+    @FXML public ImageView imageView;
+    @FXML public Label damageDone;
+    @FXML public Label damageReceived;
+    @FXML public Label alliedDamage;
+    @FXML public Label healDone;
+    @FXML public Label healReceived;
+    @FXML public Label personalHeal;
+    @FXML public Label critical;
+    @FXML public Label failure;
+    @FXML public Label minionControlled;
+    @FXML public Label minionKilled;
+    @FXML public Label bossKilled;
+    @FXML public Label controlled;
+    @FXML public Label knockOut;
+    //endregion
+    //region Other Variables
     public String characterId;
     private PlayerList playerList = new PlayerList();
     private NpcList npcList = new NpcList();
-    private VBox rootNode;
-    private FlowPane parentFlowPane;
-
+    private VBox characterNode;
+    private FlowPane characterFlowPane;
+    //endregion
+    //region Constructors
     public void setPlayerList(PlayerList playerList){
         this.playerList = playerList;
     }
-
     public void setNpcList(NpcList npcList){
         this.npcList = npcList;
     }
-
-    public void setRootNode(VBox rootNode) {
-        this.rootNode = rootNode;
+    public void setCharacterCard(VBox characterNode, FlowPane characterFlowPane) {
+        this.characterNode = characterNode;
+        this.characterFlowPane = characterFlowPane;
     }
-
-    public void setParentFlowPane(FlowPane parentFlowPane){
-        this.parentFlowPane = parentFlowPane;
-    }
-
+    //endregion
+    //region Edit Button
     public void handleCharacterEdit(ActionEvent actionEvent) {
         System.out.println("Editing character: " + characterName.getText());
         CharacterDTO characterDTO = playerList.getPlayerById(characterId);
@@ -66,7 +78,9 @@ public class CharacterCardController {
             VBox dialogPane = loader.load();
 
             ViewCharacterController dialogController = loader.getController();
+            dialogController.setRootNode(dialogPane);
             dialogController.setCharacterDetail(characterDTO, this);
+
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Éditer personnage");
@@ -79,7 +93,39 @@ public class CharacterCardController {
             e.printStackTrace();
         }
     }
+    //endregion
+    //region Put and delete
+    public void updateCharacter(CharacterDTO character) throws FileNotFoundException {
+        if (playerList.getPlayerById(characterId) != null){
+            playerList.updatePlayers(character);
+        } else {
+            npcList.updateNpcs(character);
+        }
 
+        setCharacterDetails(
+                character.getFirstName(),
+                character.getLastName(),
+                character.get_class(),
+                character.getSubclass(),
+                character.getClassLevel(),
+                character.getClass2(),
+                character.getSubclass2(),
+                character.getClassLevel2(),
+                characterId
+        );
+        applyCardStyle();
+    }
+
+    public void deleteCharacter(CharacterDTO character){
+        characterFlowPane.getChildren().remove(characterNode);
+        if (playerList.getPlayerById(characterId) != null){
+            playerList.deletePlayer(character);
+        } else {
+            npcList.deleteNpc(character);
+        }
+    }
+    //endregion
+    //region Other Utilities
     public void setCharacterDetails(String firstName, String lastName, String _class, String subclass, Integer level,
                                     String class2, String subclass2, Integer classLevel2, String id){
         this.characterId = id;
@@ -103,56 +149,25 @@ public class CharacterCardController {
             String imagePath = "/dursahn/dndstats/images/" + firstName.toLowerCase() + ".png";
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         } catch (NullPointerException e) {
-            // Si l'image spécifique n'est pas trouvée, charger l'image par défaut
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/dursahn/dndstats/images/default.png")));
             System.out.println("Image not found for " + firstName + ", using default.png");
         }
         imageView.setImage(image);
     }
 
-    public void updateCharacter(CharacterDTO character) throws FileNotFoundException {
-        if (playerList.getPlayerById(characterId) != null){
-            playerList.updatePlayers(character);
-        } else {
-            npcList.updateNpcs(character);
-        }
-
-        setCharacterDetails(
-                character.getFirstName(),
-                character.getLastName(),
-                character.get_class(),
-                character.getSubclass(),
-                character.getClassLevel(),
-                character.getClass2(),
-                character.getSubclass2(),
-                character.getClassLevel2(),
-                characterId
-        );
-        applyCardStyle();
-    }
-
     private void applyCardStyle() {
-        if (rootNode != null) {
+        if (characterNode != null) {
             CharacterDTO character = playerList.getPlayerById(characterId);
             if (character == null) {
                 character = npcList.getNpcById(characterId);
             }
             if (character != null) {
-                rootNode.setStyle("-fx-background-color: #" + character.getColor() + "1A;" +
+                characterNode.setStyle("-fx-background-color: #" + character.getColor() + "1A;" +
                         "-fx-border-color: #" + character.getColor());
             }
         } else {
             System.err.println("Root node is null in CharacterCardController");
         }
     }
-
-    public void deleteCharacter(CharacterDTO character){
-        parentFlowPane.getChildren().remove(rootNode);
-        if (playerList.getPlayerById(characterId) != null){
-            playerList.deletePlayer(character);
-        } else {
-            npcList.deleteNpc(character);
-        }
-
-    }
+    //endregion
 }

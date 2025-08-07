@@ -3,9 +3,14 @@ package dursahn.dndstats.controllers;
 import dursahn.dndstats.dto.CharacterDTO;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 public class ViewCharacterController {
     public TextField characterFirstName;
@@ -17,9 +22,15 @@ public class ViewCharacterController {
     public TextField characterSubclass2;
     public TextField characterClass2Level;
     public TextField characterColor;
+    public ImageView imageView;
 
     private CharacterDTO character;
     private CharacterCardController mainController;
+    private VBox rootNode;
+
+    public void setRootNode(VBox rootNode){
+        this.rootNode = rootNode;
+    }
 
     public void setCharacterDetail(CharacterDTO character, CharacterCardController mainController){
         this.character = character;
@@ -36,6 +47,18 @@ public class ViewCharacterController {
             characterSubclass2.setText(character.getSubclass2());
             characterClass2Level.setText(character.getClassLevel2().toString());
         }
+
+        Image image = null;
+        try {
+            String imagePath = "/dursahn/dndstats/images/" + character.getFirstName().toLowerCase() + ".png";
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+        } catch (NullPointerException e) {
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/dursahn/dndstats/images/default.png")));
+            System.out.println("Image not found for " + character.getFirstName() + ", using default.png");
+        }
+        imageView.setImage(image);
+        rootNode.setStyle("-fx-background-color: #" + character.getColor() + "1A;" +
+                "-fx-border-color: #" + character.getColor());
     }
 
 

@@ -26,12 +26,9 @@ public class NpcList implements Serializable {
 
     public void addNpc(CharacterDTO character){
         npcs.add(character);
+        sortNpcsByFirstName();
         saveNPCS();
         printNpcs();
-    }
-
-    public void removeNpc(CharacterDTO character){
-        npcs.remove(character);
     }
 
     public void updateNpcs(CharacterDTO udpate) throws FileNotFoundException {
@@ -80,8 +77,8 @@ public class NpcList implements Serializable {
 
     private void printNpcs() {
         System.out.println("Current players in memory: " + npcs.size());
-        for (CharacterDTO player : npcs) {
-            System.out.println("Player: " + player); // Dépend de toString() dans CharacterDTO
+        for (CharacterDTO npc : npcs) {
+            System.out.println("Npcs: " + npc); // Dépend de toString() dans CharacterDTO
         }
     }
 

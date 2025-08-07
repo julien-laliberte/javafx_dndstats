@@ -19,6 +19,19 @@ public class CharacterDTO implements Serializable {
     private String subclass2;
     private Integer classLevel2;
     private String color;
+    private Integer damageDone;
+    private Integer damageReceived;
+    private Integer healDone;
+    private Integer healReceived;
+    private Integer personalHeal;
+    private Integer critical;
+    private Integer failure;
+    private Integer minionControlled;
+    private Integer minionKilled;
+    private Integer bossKilled;
+    private Integer controlled;
+    private Integer knockOut;
+    private Boolean isVisible;
 
     public CharacterDTO(String firstName, String lastName, String _class, String subclass, Integer classLevel,
                         String class2, String subclass2, Integer classLevel2, String color) {
@@ -32,13 +45,27 @@ public class CharacterDTO implements Serializable {
         this.subclass2 = subclass2;
         this.classLevel2 = classLevel2;
         this.color = color;
+        this.damageDone = 0;
+        this.damageReceived = 0;
+        this.healDone = 0;
+        this.healReceived = 0;
+        this.personalHeal = 0;
+        this.critical = 0;
+        this.failure = 0;
+        this.minionControlled = 0;
+        this.minionKilled = 0;
+        this.bossKilled = 0;
+        this.controlled = 0;
+        this.knockOut = 0;
+        this.isVisible = false;
     }
 
     @Override
     public String toString() {
-        return "CharacterDTO{firstName='" + firstName + "', lastName='" + lastName + "', class='" + _class + "'}";
+        return "Character {firstName='" + firstName + "', lastName='" + lastName + "', class='" + _class + "'}";
     }
 
+    //region Getters and Setters
     public String getId() {
         return id;
     }
@@ -115,5 +142,112 @@ public class CharacterDTO implements Serializable {
         this.color = color;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
+    public Integer getDamageDone() {
+        return damageDone;
+    }
+
+    public void setDamageDone(Integer damageDone) {
+        this.damageDone = damageDone;
+    }
+
+    public Integer getDamageReceived() {
+        return damageReceived;
+    }
+
+    public void setDamageReceived(Integer damageReceived) {
+        this.damageReceived = damageReceived;
+    }
+
+    public Integer getHealDone() {
+        return healDone;
+    }
+
+    public void setHealDone(Integer healDone) {
+        this.healDone = healDone;
+    }
+
+    public Integer getHealReceived() {
+        return healReceived;
+    }
+
+    public void setHealReceived(Integer healReceived) {
+        this.healReceived = healReceived;
+    }
+
+    public Integer getPersonalHeal() {
+        return personalHeal;
+    }
+
+    public void setPersonalHeal(Integer personalHeal) {
+        this.personalHeal = personalHeal;
+    }
+
+    public Integer getCritical() {
+        return critical;
+    }
+
+    public void setCritical(Integer critical) {
+        this.critical = critical;
+    }
+
+    public Integer getFailure() {
+        return failure;
+    }
+
+    public void setFailure(Integer failure) {
+        this.failure = failure;
+    }
+
+    public Integer getMinionControlled() {
+        return minionControlled;
+    }
+
+    public void setMinionControlled(Integer minionControlled) {
+        this.minionControlled = minionControlled;
+    }
+
+    public Integer getMinionKilled() {
+        return minionKilled;
+    }
+
+    public void setMinionKilled(Integer minionKilled) {
+        this.minionKilled = minionKilled;
+    }
+
+    public Integer getBossKilled() {
+        return bossKilled;
+    }
+
+    public void setBossKilled(Integer bossKilled) {
+        this.bossKilled = bossKilled;
+    }
+
+    public Integer getControlled() {
+        return controlled;
+    }
+
+    public void setControlled(Integer controlled) {
+        this.controlled = controlled;
+    }
+
+    public Integer getKnockOut() {
+        return knockOut;
+    }
+
+    public void setKnockOut(Integer knockOut) {
+        this.knockOut = knockOut;
+    }
+
+    public Boolean getVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(Boolean visible) {
+        isVisible = visible;
+    }
+    //endregion
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="dursahn.dndstats.controllers.ViewDmController"
+      prefHeight="350.0" prefWidth="375.0"
+      spacing="5" alignment="TOP_CENTER">
+
+    <!-- Dialog Title -->
+    <ImageView fx:id="imageView"/>
+    <HBox spacing="5">
+        <Label text="Nom" minWidth="100"/>
+        <TextField fx:id="dmName" promptText="Jessica" minWidth="250"/>
+    </HBox>
+    <HBox spacing="5">
+        <Label text="Surnom" minWidth="100"/>
+        <TextField fx:id="dmSurname" promptText="Déesse de merde" minWidth="250"/>
+    </HBox>
+    <HBox spacing="5">
+        <Label text="Color (HEX)" minWidth="100"/>
+        <TextField fx:id="dmColor" promptText="11004E" minWidth="250"/>
+    </HBox>
+
+    <!-- Update and Cancel Buttons -->
+    <HBox spacing="20" alignment="CENTER_RIGHT">
+        <MFXButton text="Delete" onAction="#handleDelete" styleClass="delete-button" prefWidth="80" prefHeight="30"/>
+        <Region HBox.hgrow="ALWAYS" />
+        <MFXButton text="Cancel" onAction="#handleCancel" styleClass="cancel-button" prefWidth="80" prefHeight="30"/>
+        <MFXButton text="Update" onAction="#handleUpdate" styleClass="update-button" prefWidth="80" prefHeight="30"/>
+    </HBox>
+</VBox>

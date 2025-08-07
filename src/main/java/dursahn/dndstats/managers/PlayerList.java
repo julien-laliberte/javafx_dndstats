@@ -17,7 +17,7 @@ public class PlayerList implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String FILE_PATH = "src/main/data/players.bin";
 
-    private final List<CharacterDTO> players = new ArrayList<>();
+    private List<CharacterDTO> players = new ArrayList<>();
 
     public PlayerList() {
         loadPlayers(); // Charger les joueurs existants au démarrage
@@ -29,6 +29,7 @@ public class PlayerList implements Serializable {
 
     public void addPlayer(CharacterDTO character) {
         players.add(character);
+        sortPlayerByFirstName();
         savePlayers();
         printPlayers(); // Afficher les joueurs pour débogage
     }
@@ -55,20 +56,20 @@ public class PlayerList implements Serializable {
         return null;
     }
 
-    public void updatePlayers(CharacterDTO udpate) throws FileNotFoundException {
+    public void updatePlayers(CharacterDTO update) {
         for(int i=0 ; i<players.size(); i++){
             CharacterDTO current = players.get(i);
-            if(current.getId().equals(udpate.getId())){
-                current.setFirstName(udpate.getFirstName());
-                current.setLastName(udpate.getLastName());
-                current.set_class(udpate.get_class());
-                current.setSubclass(udpate.getSubclass());
-                current.setClassLevel(udpate.getClassLevel());
-                current.setColor(udpate.getColor());
-                if(udpate.getClass2() != null) {
-                    current.setClass2(udpate.getClass2());
-                    current.setSubclass2(udpate.getSubclass2());
-                    current.setClassLevel2(udpate.getClassLevel2());
+            if(current.getId().equals(update.getId())){
+                current.setFirstName(update.getFirstName());
+                current.setLastName(update.getLastName());
+                current.set_class(update.get_class());
+                current.setSubclass(update.getSubclass());
+                current.setClassLevel(update.getClassLevel());
+                current.setColor(update.getColor());
+                if(update.getClass2() != null) {
+                    current.setClass2(update.getClass2());
+                    current.setSubclass2(update.getSubclass2());
+                    current.setClassLevel2(update.getClassLevel2());
                 }
             }
         }
@@ -105,21 +106,11 @@ public class PlayerList implements Serializable {
     private void loadPlayers() {
         File file = new File(FILE_PATH);
         if (file.exists()) {
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-                Object obj = ois.readObject();
-                if (obj instanceof List<?>) {
-                    players.clear(); // Vider la liste actuelle
-                    for (Object item : (List<?>) obj) {
-                        if (item instanceof CharacterDTO) {
-                            players.add((CharacterDTO) item);
-                        } else {
-                            System.err.println("Unexpected object type in file: " + item.getClass().getName());
-                        }
-                    }
-                    System.out.println("Loaded " + players.size() + " players from file.");
-                } else {
-                    System.err.println("File content is not a List. Type: " + obj.getClass().getName());
-                }
+            try (ObjectInputStream ois =
+                         new ObjectInputStream(
+                                 new FileInputStream(file)
+                         )) {
+                players =(List<CharacterDTO>) ois.readObject();
             } catch (IOException e) {
                 System.err.println("Error reading players: " + e.getMessage());
                 e.printStackTrace();
@@ -127,8 +118,6 @@ public class PlayerList implements Serializable {
                 System.err.println("Class not found during deserialization: " + e.getMessage());
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("No existing player file found at: " + file.getAbsolutePath());
         }
     }
 

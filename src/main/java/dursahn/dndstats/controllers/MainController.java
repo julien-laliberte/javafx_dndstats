@@ -62,10 +62,10 @@ public class MainController {
 //                null, null, null, "2f0086");
 //        addNpc("Alyssa",  "Vae'Lorynn", "Warlock", "Hexblade",6,
 //                null, null, null, "883289");
-       addDm("Jessica", "Déesse de merde :D", "00ffff");
+//       addDm("Jessica", "Déesse de merde :D", "00ffff");
 
         loadCharacters();
-
+        loadDM();
     }
 
     //region Buttons
@@ -95,8 +95,6 @@ public class MainController {
     }
 
     public void handleEditGame(ActionEvent actionEvent) {
-        addCharacter("Fenrick",  "Damascus", "Bloodhunter", "Order of Lycan", 6
-        , null, null, null, "2f0086");
     }
 
     public void handleEditCharacters(ActionEvent actionEvent) {
@@ -151,8 +149,7 @@ public class MainController {
                     character.getClassLevel2(),
                     character.getId()
             );
-            controller.setRootNode(characterCard);
-            controller.setParentFlowPane(targetPane);
+            controller.setCharacterCard(characterCard, targetPane);
             characterCard.setStyle("-fx-background-color: #" + character.getColor() +"1A;" +
                     "-fx-border-color: #" + character.getColor());
             targetPane.getChildren().add(characterCard);
@@ -176,8 +173,10 @@ public class MainController {
             DmCardController controller = loader.getController();
             controller.setDmDetails(
                     dmDTO.getName(),
-                    dmDTO.getSurname()
+                    dmDTO.getSurname(),
+                    dmDTO.getId()
             );
+            controller.SetDmCard(dmCard, dmListFlowPane);
             dmCard.setStyle("-fx-background-color: #" + dmDTO.getColor() +"1A;" +
                     "-fx-border-color: #" + dmDTO.getColor());
             dmListFlowPane.getChildren().add(dmCard);
@@ -197,6 +196,13 @@ public class MainController {
 
         for(CharacterDTO npc: npcs){
             displayCharacter(npc, npcListFlowPane);
+        }
+    }
+
+    private void loadDM(){
+        List<DmDTO> dms = dmList.getDms();
+        for(DmDTO dm: dms){
+            displayDm(dm);
         }
     }
     //endregion
