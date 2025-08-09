@@ -17,15 +17,18 @@ public class ViewDmController {
     public TextField dmColor;
 
     private DmDTO dm;
-    private DmCardController mainController;
+    private DmCardController dmCardController;
+    private MainController mainController;
     private VBox rootNode;
 
     public void setRootNode(VBox rootNode){
         this.rootNode = rootNode;
     }
 
-    public void setDmDetail(DmDTO dm, DmCardController mainController){
+    public void setDmDetail(DmDTO dm, DmCardController dmCardController,
+                            MainController mainController){
         this.dm = dm;
+        this.dmCardController = dmCardController;
         this.mainController = mainController;
 
         dmName.setText(dm.getName());
@@ -46,7 +49,8 @@ public class ViewDmController {
     }
 
     public void handleDelete(ActionEvent actionEvent) {
-        mainController.deleteDM(dm);
+        dmCardController.deleteDM(dm);
+        mainController.redrawAllCards();
         closeDialog();
     }
 
@@ -58,7 +62,8 @@ public class ViewDmController {
         dm.setName(dmName.getText());
         dm.setSurname(dmSurname.getText());
         dm.setColor(dmColor.getText());
-        mainController.updateDm(dm);
+        dmCardController.updateDm(dm);
+        mainController.redrawAllCards();
         closeDialog();
     }
 

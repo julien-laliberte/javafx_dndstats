@@ -2,13 +2,13 @@ package dursahn.dndstats.controllers;
 
 import dursahn.dndstats.dto.CharacterDTO;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
@@ -25,15 +25,18 @@ public class ViewCharacterController {
     public ImageView imageView;
 
     private CharacterDTO character;
-    private CharacterCardController mainController;
+    private CharacterCardController characterCardController;
+    private MainController mainController;
     private VBox rootNode;
 
     public void setRootNode(VBox rootNode){
         this.rootNode = rootNode;
     }
 
-    public void setCharacterDetail(CharacterDTO character, CharacterCardController mainController){
+    public void setCharacterDetail(CharacterDTO character, CharacterCardController characterCardController,
+                                   MainController mainController){
         this.character = character;
+        this.characterCardController = characterCardController;
         this.mainController = mainController;
 
         characterFirstName.setText(character.getFirstName());
@@ -64,7 +67,8 @@ public class ViewCharacterController {
 
 
     public void handleDelete(ActionEvent actionEvent) {
-        mainController.deleteCharacter(character);
+        characterCardController.deleteCharacter(character);
+        mainController.redrawAllCards();
         closeDialog();
     }
 
@@ -85,7 +89,8 @@ public class ViewCharacterController {
             character.setSubclass2(characterSubclass2.getText());
             character.setClassLevel2(Integer.parseInt(characterClass2Level.getText()));
         }
-        mainController.updateCharacter(character);
+        characterCardController.updateCharacter(character);
+        mainController.redrawAllCards();
 
         closeDialog();
     }

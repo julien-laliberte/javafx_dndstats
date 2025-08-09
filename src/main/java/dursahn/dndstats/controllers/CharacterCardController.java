@@ -28,6 +28,7 @@ public class CharacterCardController {
     @FXML public Label characterSubClass2;
     @FXML public Label characterLevel2;
     @FXML public ImageView imageView;
+
     @FXML public Label damageDone;
     @FXML public Label damageReceived;
     @FXML public Label alliedDamage;
@@ -44,21 +45,18 @@ public class CharacterCardController {
     //endregion
     //region Other Variables
     public String characterId;
+    private MainController mainController;
     private PlayerList playerList = new PlayerList();
     private NpcList npcList = new NpcList();
     private VBox characterNode;
     private FlowPane characterFlowPane;
     //endregion
     //region Constructors
-    public void setPlayerList(PlayerList playerList){
-        this.playerList = playerList;
-    }
-    public void setNpcList(NpcList npcList){
-        this.npcList = npcList;
-    }
-    public void setCharacterCard(VBox characterNode, FlowPane characterFlowPane) {
+
+    public void setCharacterCard(VBox characterNode, FlowPane characterFlowPane, MainController mainController) {
         this.characterNode = characterNode;
         this.characterFlowPane = characterFlowPane;
+        this.mainController = mainController;
     }
     //endregion
     //region Edit Button
@@ -79,7 +77,7 @@ public class CharacterCardController {
 
             ViewCharacterController dialogController = loader.getController();
             dialogController.setRootNode(dialogPane);
-            dialogController.setCharacterDetail(characterDTO, this);
+            dialogController.setCharacterDetail(characterDTO, this, mainController);
 
 
             Stage dialogStage = new Stage();

@@ -19,6 +19,7 @@ public class DmCardController {
     @FXML public Label dmName;
     @FXML public Label dmSurname;
     @FXML public ImageView imageView;
+
     @FXML public Label damageDone;
     @FXML public Label damageReceived;
     @FXML public Label personalHeal;
@@ -32,13 +33,16 @@ public class DmCardController {
 
     public String dmId;
     private DmList dmList = new DmList();
+    private MainController mainController;
     private VBox dmNode;
     private FlowPane dmFlowPane;
     //region Constructors
     public void SetDmList(DmList dmList){ this.dmList = dmList;}
-    public void SetDmCard(VBox dmNode, FlowPane dmFlowPane) {
+    public void SetDmCard(VBox dmNode, FlowPane dmFlowPane, MainController mainController) {
         this.dmNode = dmNode;
         this.dmFlowPane = dmFlowPane;
+        this.mainController = mainController;
+
     }
     //endregion
     //region Edit Button
@@ -57,7 +61,7 @@ public class DmCardController {
 
             ViewDmController dialogController = loader.getController();
             dialogController.setRootNode(dialogPane);
-            dialogController.setDmDetail(dmDTO, this);
+            dialogController.setDmDetail(dmDTO, this, mainController);
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Éditer DM");
@@ -93,8 +97,14 @@ public class DmCardController {
         this.dmId = id;
         dmName.setText(name.toUpperCase());
         dmSurname.setText(surname);
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(
-                "/dursahn/dndstats/images/" + name.toLowerCase() + ".png")));
+        Image image = null;
+        try {
+            String imagePath = "/dursahn/dndstats/images/" + name + ".png";
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+        } catch (NullPointerException e) {
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/dursahn/dndstats/images/default.png")));
+            System.out.println("Image not found for " + name + ", using default.png");
+        }
         imageView.setImage(image);
     }
     private void applyCardStyle() {

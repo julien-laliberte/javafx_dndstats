@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="dursahn.dndstats.controllers.EditGameController"
+      prefHeight="600.0" prefWidth="700.0"
+      spacing="25" alignment="TOP_CENTER">
+
+    <!-- Padding pour toute la vue -->
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Section Joueurs -->
+    <VBox spacing="10" alignment="CENTER">
+        <Label text="Veuillez choisir les joueurs"
+               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <GridPane fx:id="playersGrid"
+                  hgap="15" vgap="8"
+                  alignment="CENTER"
+                  style="-fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-padding: 15;"/>
+    </VBox>
+
+    <!-- Section NPCs -->
+    <VBox spacing="10" alignment="CENTER">
+        <Label text="Veuillez choisir les NPCs"
+               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <GridPane fx:id="npcsGrid"
+                  hgap="15" vgap="8"
+                  alignment="CENTER"
+                  style="-fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-padding: 15;"/>
+    </VBox>
+
+    <!-- Section DM -->
+    <VBox spacing="10" alignment="CENTER">
+        <Label text="Veuillez choisir le DM"
+               style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <GridPane fx:id="dmGrid"
+                  hgap="15" vgap="8"
+                  alignment="CENTER"
+                  style="-fx-border-color: #bdc3c7; -fx-border-radius: 5; -fx-padding: 15;"/>
+    </VBox>
+
+    <!-- Boutons d'action -->
+    <HBox spacing="15" alignment="CENTER">
+        <padding>
+            <Insets top="20"/>
+        </padding>
+
+        <Button fx:id="btnAnnuler"
+                text="Annuler"
+                prefWidth="120" prefHeight="35"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"
+                onAction="#handleCancel"/>
+
+        <Button fx:id="btnConfirmer"
+                text="Confirmer"
+                prefWidth="120" prefHeight="35"
+                style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;"
+                onAction="#handleEdit"/>
+    </HBox>
+
+</VBox>

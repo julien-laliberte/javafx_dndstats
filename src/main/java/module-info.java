@@ -8,5 +8,6 @@ module dursahn.dndstats {
     exports dursahn.dndstats;
     exports dursahn.dndstats.controllers;
     exports dursahn.dndstats.dto;
+    exports dursahn.dndstats.managers;
     opens dursahn.dndstats.controllers to javafx.fxml;
 }

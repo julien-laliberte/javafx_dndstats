@@ -95,6 +95,24 @@ public class MainController {
     }
 
     public void handleEditGame(ActionEvent actionEvent) {
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/dursahn/dndstats/views/edit_game.fxml"));
+            VBox dialogPane = loader.load();
+            EditGameController dialogController = loader.getController();
+            dialogController.setAllLists(playerList, npcList, dmList);
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Ajouter un personnage/NPC/DM");
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+
+            Scene scene = new Scene(dialogPane);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleEditCharacters(ActionEvent actionEvent) {
@@ -106,6 +124,7 @@ public class MainController {
                                        String class2, String subclass2, Integer classLevel2, String color){
         addCharacter(firstMame, lastName, _class, subclass, level,
                 class2, subclass2, classLevel2, color);
+        redrawAllCards();
     }
 
     private void addCharacter(String firstMame, String lastName, String _class, String subclass, Integer level,
@@ -121,6 +140,7 @@ public class MainController {
                                  String class2, String subclass2, Integer classLevel2, String color){
         addNpc(firstMame, lastName, _class, subclass, level,
                 class2, subclass2, classLevel2, color);
+        redrawAllCards();
     }
 
     private void addNpc(String firstMame, String lastName, String _class, String subclass, Integer level,
@@ -149,7 +169,7 @@ public class MainController {
                     character.getClassLevel2(),
                     character.getId()
             );
-            controller.setCharacterCard(characterCard, targetPane);
+            controller.setCharacterCard(characterCard, targetPane, this);
             characterCard.setStyle("-fx-background-color: #" + character.getColor() +"1A;" +
                     "-fx-border-color: #" + character.getColor());
             targetPane.getChildren().add(characterCard);
@@ -162,7 +182,7 @@ public class MainController {
     public void addDm(String name, String surname, String color){
         DmDTO newDm = new DmDTO(name, surname, color);
         dmList.addDM(newDm);
-        displayDm(newDm);
+        redrawAllCards();
     }
 
     private void displayDm(DmDTO dmDTO){
@@ -176,7 +196,7 @@ public class MainController {
                     dmDTO.getSurname(),
                     dmDTO.getId()
             );
-            controller.SetDmCard(dmCard, dmListFlowPane);
+            controller.SetDmCard(dmCard, dmListFlowPane, this);
             dmCard.setStyle("-fx-background-color: #" + dmDTO.getColor() +"1A;" +
                     "-fx-border-color: #" + dmDTO.getColor());
             dmListFlowPane.getChildren().add(dmCard);
@@ -187,8 +207,7 @@ public class MainController {
 
     private void loadCharacters(){
         List<CharacterDTO> players = playerList.getPlayers();
-        List<CharacterDTO> npcs = npcList.getNpc();
-        //List<DmDTO> dm;
+        List<CharacterDTO> npcs = npcList.getNpcs();
 
         for(CharacterDTO player: players){
             displayCharacter(player, playerListFlowPane);
@@ -204,6 +223,19 @@ public class MainController {
         for(DmDTO dm: dms){
             displayDm(dm);
         }
+    }
+
+    public void redrawAllCards() {
+        playerListFlowPane.getChildren().clear();
+        npcListFlowPane.getChildren().clear();
+        dmListFlowPane.getChildren().clear();
+
+        playerList.loadPlayers();
+        npcList.loadNpcs();
+        dmList.loadDms();
+
+        loadCharacters();
+        loadDM();
     }
     //endregion
 }

@@ -1,5 +1,6 @@
 package dursahn.dndstats.managers;
 
+import dursahn.dndstats.dto.CharacterDTO;
 import dursahn.dndstats.dto.DmDTO;
 import java.io.*;
 import java.util.ArrayList;
@@ -32,6 +33,14 @@ public class DmList implements Serializable {
         for (DmDTO dm : dms) {
             System.out.println("DM: " + dm); // Dépend de toString() dans CharacterDTO
         }
+    }
+
+    public List<String> getDmsName(){
+        List<String> names = new ArrayList<>();
+        for(DmDTO dm: dms){
+            names.add(dm.getName());
+        }
+        return names;
     }
 
     public DmDTO getDmById(String id){
@@ -67,7 +76,7 @@ public class DmList implements Serializable {
         }
     }
 
-    private void loadDms() {
+    public void loadDms() {
         File file = new File(FILE_PATH);
         if(file.exists()){
             try(ObjectInputStream ois =

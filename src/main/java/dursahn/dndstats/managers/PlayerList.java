@@ -20,6 +20,7 @@ public class PlayerList implements Serializable {
     private List<CharacterDTO> players = new ArrayList<>();
 
     public PlayerList() {
+        sortPlayerByFirstName();
         loadPlayers(); // Charger les joueurs existants au démarrage
     }
 
@@ -31,20 +32,22 @@ public class PlayerList implements Serializable {
         players.add(character);
         sortPlayerByFirstName();
         savePlayers();
-        printPlayers(); // Afficher les joueurs pour débogage
+        printPlayers();
     }
-
-    public void removePlayer(CharacterDTO character) {
-        players.remove(character);
-        savePlayers();
-    }
-
 
     private void printPlayers() {
         System.out.println("Current players in memory: " + players.size());
         for (CharacterDTO player : players) {
             System.out.println("Player: " + player); // Dépend de toString() dans CharacterDTO
         }
+    }
+
+    public List<String> getPlayersName(){
+        List<String> names = new ArrayList<>();
+        for(CharacterDTO player: players){
+            names.add(player.getFirstName());
+        }
+        return names;
     }
 
     public CharacterDTO getPlayerById(String id){
@@ -86,6 +89,9 @@ public class PlayerList implements Serializable {
                     }
                 }
         );
+        for(CharacterDTO player: players){
+            System.out.println(player.getFirstName());
+        }
     }
 
     private void savePlayers() {
@@ -103,7 +109,7 @@ public class PlayerList implements Serializable {
         }
     }
 
-    private void loadPlayers() {
+    public void loadPlayers() {
         File file = new File(FILE_PATH);
         if (file.exists()) {
             try (ObjectInputStream ois =
@@ -125,4 +131,6 @@ public class PlayerList implements Serializable {
         players.remove(character);
         savePlayers();
     }
+
+
 }

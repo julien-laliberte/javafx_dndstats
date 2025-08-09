@@ -20,9 +20,10 @@ public class NpcList implements Serializable {
         loadNpcs();
     }
 
-    public List<CharacterDTO> getNpc() {
+    public List<CharacterDTO> getNpcs() {
         return npcs;
     }
+
 
     public void addNpc(CharacterDTO character){
         npcs.add(character);
@@ -82,7 +83,15 @@ public class NpcList implements Serializable {
         }
     }
 
-    private void loadNpcs(){
+    public List<String> getNpcsName(){
+        List<String> names = new ArrayList<>();
+        for(CharacterDTO npc: npcs){
+            names.add(npc.getFirstName());
+        }
+        return names;
+    }
+
+    public void loadNpcs(){
         File file = new File(FILE_PATH);
         if(file.exists()){
             try(ObjectInputStream ois = new ObjectInputStream(
