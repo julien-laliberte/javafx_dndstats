@@ -69,7 +69,6 @@ public class NpcList implements Serializable {
                 new ObjectOutputStream(
                         new FileOutputStream(FILE_PATH)
                 )){
-            System.out.println("Saving to: " + FILE_PATH);
             oos.writeObject(npcs);
         } catch (IOException e){
             e.printStackTrace();
@@ -92,6 +91,7 @@ public class NpcList implements Serializable {
     }
 
     public void loadNpcs(){
+        npcs.clear();
         File file = new File(FILE_PATH);
         if(file.exists()){
             try(ObjectInputStream ois = new ObjectInputStream(

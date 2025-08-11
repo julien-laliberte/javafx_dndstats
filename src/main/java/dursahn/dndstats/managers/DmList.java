@@ -69,7 +69,6 @@ public class DmList implements Serializable {
                 new ObjectOutputStream(
                         new FileOutputStream(FILE_PATH)
                 )){
-            System.out.println("Saving to: " + FILE_PATH);
             oos.writeObject(dms);
         } catch (IOException e){
             e.printStackTrace();
@@ -77,6 +76,7 @@ public class DmList implements Serializable {
     }
 
     public void loadDms() {
+        dms.clear();
         File file = new File(FILE_PATH);
         if(file.exists()){
             try(ObjectInputStream ois =

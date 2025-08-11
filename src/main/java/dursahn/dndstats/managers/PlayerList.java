@@ -20,8 +20,8 @@ public class PlayerList implements Serializable {
     private List<CharacterDTO> players = new ArrayList<>();
 
     public PlayerList() {
-        sortPlayerByFirstName();
         loadPlayers(); // Charger les joueurs existants au démarrage
+        sortPlayerByFirstName();
     }
 
     public List<CharacterDTO> getPlayers() {
@@ -89,19 +89,15 @@ public class PlayerList implements Serializable {
                     }
                 }
         );
-        for(CharacterDTO player: players){
-            System.out.println(player.getFirstName());
-        }
+        System.out.println("Nombre de personnages: " + players.size());
     }
 
     private void savePlayers() {
         try {
             Path filePath = Paths.get(FILE_PATH);
             Files.createDirectories(filePath.getParent());
-            System.out.println("Saving to: " + filePath.toAbsolutePath());
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath.toFile()))) {
                 oos.writeObject(players);
-                System.out.println("Save successful");
             }
         } catch (IOException e) {
             System.err.println("Error saving players: " + e.getMessage());
@@ -110,6 +106,7 @@ public class PlayerList implements Serializable {
     }
 
     public void loadPlayers() {
+        players.clear();
         File file = new File(FILE_PATH);
         if (file.exists()) {
             try (ObjectInputStream ois =

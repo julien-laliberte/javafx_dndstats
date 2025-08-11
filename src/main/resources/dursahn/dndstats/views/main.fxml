@@ -32,11 +32,13 @@
             <HBox alignment="CENTER">
                 <Label text="Joueurs" style="-fx-font-weight: bold"/>
             </HBox>
-            <CheckBox text="Dante"/>
-            <CheckBox text="Fenrick"/>
-            <CheckBox text="Marika"/>
-            <CheckBox text="Poppy"/>
-            <CheckBox text="Wyndra"/>
+            <VBox fx:id="playerCheckboxList">
+                <CheckBox text="Dante"/>
+                <CheckBox text="Fenrick"/>
+                <CheckBox text="Marika"/>
+                <CheckBox text="Poppy"/>
+                <CheckBox text="Wyndra"/>
+            </VBox>
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />
@@ -46,10 +48,12 @@
             <HBox alignment="CENTER">
                 <Label text="NPCs" style="-fx-font-weight: bold"/>
             </HBox>
-            <CheckBox text="Alyssa"/>
-            <CheckBox text="Pluto"/>
-            <CheckBox text="Bard"/>
-            <CheckBox text="L'autre"/>
+            <VBox fx:id="npcCheckboxList">
+                <CheckBox text="Alyssa"/>
+                <CheckBox text="Pluto"/>
+                <CheckBox text="Bard"/>
+                <CheckBox text="L'autre"/>
+            </VBox>
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />
@@ -82,7 +86,9 @@
             <HBox alignment="CENTER">
                 <Label text="DM" style="-fx-font-weight: bold"/>
             </HBox>
+            <VBox fx:id="dmCheckboxList">
             <CheckBox text="Jessica"/>
+            </VBox>
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />

@@ -1,5 +1,7 @@
 package dursahn.dndstats.dto;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
@@ -32,6 +34,7 @@ public class CharacterDTO implements Serializable {
     private Integer controlled;
     private Integer knockOut;
     private Boolean isVisible;
+    private Integer buffs;
 
     public CharacterDTO(String firstName, String lastName, String _class, String subclass, Integer classLevel,
                         String class2, String subclass2, Integer classLevel2, String color) {
@@ -57,7 +60,8 @@ public class CharacterDTO implements Serializable {
         this.bossKilled = 0;
         this.controlled = 0;
         this.knockOut = 0;
-        this.isVisible = false;
+        this.isVisible = true;
+        this.buffs = 0;
     }
 
     @Override
@@ -249,5 +253,19 @@ public class CharacterDTO implements Serializable {
     public void setVisible(Boolean visible) {
         isVisible = visible;
     }
+
+    public Integer getBuffs() {
+        return buffs;
+    }
+
+    public void setBuffs(Integer buffs) {
+        this.buffs = buffs;
+    }
     //endregion
+//    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+//        in.defaultReadObject();
+//        if (buffs == null) {
+//            buffs = 0; // valeur par défaut pour anciens objets
+//        }
+//    }
 }

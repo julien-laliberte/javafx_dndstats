@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.FlowPane;
@@ -16,11 +17,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainController {
 
+
     //region Variables
+    @FXML private VBox playerCheckboxList;
+    @FXML private VBox npcCheckboxList;
+    @FXML private VBox dmCheckboxList;
+
     @FXML private RadioButton degatFaitRB;
     @FXML private RadioButton degatRecuRB;
     @FXML private RadioButton soinsFaitRB;
@@ -38,6 +47,24 @@ public class MainController {
     private PlayerList playerList;
     private NpcList npcList;
     private DmList dmList;
+
+    private List<CharacterDTO> activePlayer = new ArrayList<>();
+    private List<CharacterDTO> activeNpc = new ArrayList<>();
+    private List<DmDTO> activeDm = new ArrayList<>();
+
+    private Map<CheckBox, CharacterDTO> playerCheckBoxMap = new HashMap<>();
+    private Map<CheckBox, CharacterDTO> npcCheckBoxMap = new HashMap<>();
+    private Map<CheckBox, DmDTO> dmCheckBoxMap = new HashMap<>();
+
+    public Map<CheckBox, CharacterDTO> getPlayerCheckBoxMap() {
+        return playerCheckBoxMap;
+    }
+    public Map<CheckBox, CharacterDTO> getNpcCheckBoxMap() {
+        return npcCheckBoxMap;
+    }
+    public Map<CheckBox, DmDTO> getDmCheckBoxMap() {
+        return dmCheckBoxMap;
+    }
 
     private final ToggleGroup operationToggleGroup = new ToggleGroup();
     //endregion
@@ -58,14 +85,7 @@ public class MainController {
         npcList = new NpcList();
         dmList = new DmList();
 
-//        addCharacter("Fenrick", "Damascus", "Bloodhunter", "Order of Lycan", 6,
-//                null, null, null, "2f0086");
-//        addNpc("Alyssa",  "Vae'Lorynn", "Warlock", "Hexblade",6,
-//                null, null, null, "883289");
-//       addDm("Jessica", "Déesse de merde :D", "00ffff");
-
-        loadCharacters();
-        loadDM();
+        redrawAllCards();
     }
 
     //region Buttons
@@ -101,6 +121,7 @@ public class MainController {
             VBox dialogPane = loader.load();
             EditGameController dialogController = loader.getController();
             dialogController.setAllLists(playerList, npcList, dmList);
+            dialogController.setMainController(this);
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Ajouter un personnage/NPC/DM");
@@ -119,6 +140,35 @@ public class MainController {
     }
 
     //endregion
+    // region Operations interface
+    public void redrawInterface(List<CharacterDTO> activePlayersList,
+                                List<CharacterDTO> activeNpcsList,
+                                List<DmDTO> activeDmList){
+        playerCheckboxList.getChildren().clear();
+        npcCheckboxList.getChildren().clear();
+        dmCheckboxList.getChildren().clear();
+
+        for(int i = 0 ; i < activePlayersList.size() ; i++){
+            CharacterDTO player = activePlayersList.get(i);
+            CheckBox checkBox = new CheckBox(player.getFirstName());
+            getPlayerCheckBoxMap().put(checkBox, player);
+            playerCheckboxList.getChildren().add(checkBox);
+        }
+        for(int i = 0 ; i < activeNpcsList.size() ; i++){
+            CharacterDTO npc = activeNpcsList.get(i);
+            CheckBox checkBox = new CheckBox(npc.getFirstName());
+            getNpcCheckBoxMap().put(checkBox, npc);
+            npcCheckboxList.getChildren().add(checkBox);
+        }
+        for(int i = 0 ; i < activeDmList.size() ; i++){
+            DmDTO dm = activeDmList.get(i);
+            CheckBox checkBox = new CheckBox(dm.getName());
+            getDmCheckBoxMap().put(checkBox, dm);
+            dmCheckboxList.getChildren().add(checkBox);
+        }
+
+    }
+    // endregion
     //region Characters interface
     public void addCharacterFromDialog(String firstMame, String lastName, String _class, String subclass, Integer level,
                                        String class2, String subclass2, Integer classLevel2, String color){
@@ -210,18 +260,27 @@ public class MainController {
         List<CharacterDTO> npcs = npcList.getNpcs();
 
         for(CharacterDTO player: players){
-            displayCharacter(player, playerListFlowPane);
+            if(player.getVisible()) {
+                displayCharacter(player, playerListFlowPane);
+                activePlayer.add(player);
+            }
         }
 
         for(CharacterDTO npc: npcs){
-            displayCharacter(npc, npcListFlowPane);
+            if(npc.getVisible()) {
+                displayCharacter(npc, npcListFlowPane);
+                activeNpc.add(npc);
+            }
         }
     }
 
     private void loadDM(){
         List<DmDTO> dms = dmList.getDms();
         for(DmDTO dm: dms){
-            displayDm(dm);
+            if(dm.getVisible()) {
+                displayDm(dm);
+                activeDm.add(dm);
+            }
         }
     }
 
@@ -230,12 +289,18 @@ public class MainController {
         npcListFlowPane.getChildren().clear();
         dmListFlowPane.getChildren().clear();
 
+        activePlayer.clear();
+        activeNpc.clear();
+        activeDm.clear();
+
         playerList.loadPlayers();
         npcList.loadNpcs();
         dmList.loadDms();
 
         loadCharacters();
         loadDM();
+
+        redrawInterface(activePlayer, activeNpc, activeDm);
     }
     //endregion
 }
