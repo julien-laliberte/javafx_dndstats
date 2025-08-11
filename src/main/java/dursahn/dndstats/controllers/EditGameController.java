@@ -107,4 +107,28 @@ public class EditGameController {
         Stage stage = (Stage) playersGrid.getScene().getWindow();
         stage.close();
     }
+
+    public void handleSelectNone(ActionEvent actionEvent) {
+        for(CheckBox checkBox: playerCheckBoxMap.keySet()){
+            checkBox.setSelected(false);
+        }
+        for(CheckBox checkBox: npcCheckBoxMap.keySet()){
+            checkBox.setSelected(false);
+        }
+        for(CheckBox checkBox: dmCheckBoxMap.keySet()){
+            checkBox.setSelected(false);
+        }
+    }
+
+    public void handleSelectAll(ActionEvent actionEvent) {
+        for(CheckBox checkBox: playerCheckBoxMap.keySet()){
+            checkBox.setSelected(true);
+        }
+        for(CheckBox checkBox: npcCheckBoxMap.keySet()){
+            checkBox.setSelected(true);
+        }
+        for(CheckBox checkBox: dmCheckBoxMap.keySet()){
+            checkBox.setSelected(true);
+        }
+    }
 }

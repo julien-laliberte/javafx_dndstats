@@ -47,12 +47,18 @@
         <padding>
             <Insets top="20"/>
         </padding>
-
+        <Button fx:id="btnSelectNone"
+                text="Sélectionner aucun"
+                prefWidth="180" prefHeight="35"
+                onAction="#handleSelectNone"/>
+        <Button fx:id="btnSelectAll"
+                text="Sélectionner tout"
+                prefWidth="180" prefHeight="35"
+                onAction="#handleSelectAll"/>
         <Button fx:id="btnAnnuler"
                 text="Annuler"
                 prefWidth="120" prefHeight="35"
                 onAction="#handleCancel"/>
-
         <Button fx:id="btnConfirmer"
                 text="Confirmer"
                 prefWidth="120" prefHeight="35"
