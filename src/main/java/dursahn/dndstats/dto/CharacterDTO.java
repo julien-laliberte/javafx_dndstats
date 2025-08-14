@@ -23,6 +23,7 @@ public class CharacterDTO implements Serializable {
     private String color;
     private Integer damageDone;
     private Integer damageReceived;
+    private Integer alliedDamage;
     private Integer healDone;
     private Integer healReceived;
     private Integer personalHeal;
@@ -50,6 +51,7 @@ public class CharacterDTO implements Serializable {
         this.color = color;
         this.damageDone = 0;
         this.damageReceived = 0;
+        this.alliedDamage = 0;
         this.healDone = 0;
         this.healReceived = 0;
         this.personalHeal = 0;
@@ -166,6 +168,14 @@ public class CharacterDTO implements Serializable {
         this.damageReceived = damageReceived;
     }
 
+    public Integer getAlliedDamage() {
+        return alliedDamage;
+    }
+
+    public void setAlliedDamage(Integer alliedDamage) {
+        this.alliedDamage = alliedDamage;
+    }
+
     public Integer getHealDone() {
         return healDone;
     }
@@ -262,10 +272,28 @@ public class CharacterDTO implements Serializable {
         this.buffs = buffs;
     }
     //endregion
-//    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-//        in.defaultReadObject();
-//        if (buffs == null) {
-//            buffs = 0; // valeur par défaut pour anciens objets
-//        }
-//    }
+    public void resetCharacter(){
+        this.damageDone = 0;
+        this.damageReceived = 0;
+        this.alliedDamage = 0;
+        this.healDone = 0;
+        this.healReceived = 0;
+        this.personalHeal = 0;
+        this.critical = 0;
+        this.failure = 0;
+        this.minionControlled = 0;
+        this.minionKilled = 0;
+        this.bossKilled = 0;
+        this.controlled = 0;
+        this.knockOut = 0;
+    }
+
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        if (buffs == null) {
+            buffs = 0; // valeur par défaut pour anciens objets
+            alliedDamage = 0;
+        }
+    }
 }

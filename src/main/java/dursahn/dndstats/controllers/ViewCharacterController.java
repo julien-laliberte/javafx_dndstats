@@ -91,7 +91,6 @@ public class ViewCharacterController {
         }
         characterCardController.updateCharacter(character);
         mainController.redrawAllCards();
-
         closeDialog();
     }
 

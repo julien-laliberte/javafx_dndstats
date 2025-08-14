@@ -14,7 +14,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.util.Objects;
 
 public class CharacterCardController {
@@ -52,7 +51,6 @@ public class CharacterCardController {
     private FlowPane characterFlowPane;
     //endregion
     //region Constructors
-
     public void setCharacterCard(VBox characterNode, FlowPane characterFlowPane, MainController mainController) {
         this.characterNode = characterNode;
         this.characterFlowPane = characterFlowPane;
@@ -63,22 +61,20 @@ public class CharacterCardController {
     public void handleCharacterEdit(ActionEvent actionEvent) {
         System.out.println("Editing character: " + characterName.getText());
         CharacterDTO characterDTO = playerList.getPlayerById(characterId);
-        if(characterDTO == null){
+        if (characterDTO == null) {
             characterDTO = npcList.getNpcById(characterId);
         }
         showEditCharacter(characterDTO);
     }
 
-    private void showEditCharacter(CharacterDTO characterDTO){
-        try{
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/dursahn/dndstats/views/view_character.fxml"));
+    private void showEditCharacter(CharacterDTO characterDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dursahn/dndstats/views/view_character.fxml"));
             VBox dialogPane = loader.load();
 
             ViewCharacterController dialogController = loader.getController();
             dialogController.setRootNode(dialogPane);
             dialogController.setCharacterDetail(characterDTO, this, mainController);
-
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Éditer personnage");
@@ -93,11 +89,13 @@ public class CharacterCardController {
     }
     //endregion
     //region Put and delete
-    public void updateCharacter(CharacterDTO character) throws FileNotFoundException {
-        if (playerList.getPlayerById(characterId) != null){
+    public void updateCharacter(CharacterDTO character) {
+        if (playerList.getPlayerById(characterId) != null) {
             playerList.updatePlayers(character);
+            playerList.sortPlayerByFirstName();
         } else {
             npcList.updateNpcs(character);
+            npcList.sortNpcsByFirstName();
         }
 
         setCharacterDetails(
@@ -112,22 +110,40 @@ public class CharacterCardController {
                 characterId
         );
         applyCardStyle();
+        updateStatsDisplay(character); // Mettre à jour les stats
     }
 
-    public void deleteCharacter(CharacterDTO character){
+    public void deleteCharacter(CharacterDTO character) {
         characterFlowPane.getChildren().remove(characterNode);
-        if (playerList.getPlayerById(characterId) != null){
+        if (playerList.getPlayerById(characterId) != null) {
             playerList.deletePlayer(character);
         } else {
             npcList.deleteNpc(character);
         }
     }
     //endregion
+    //region Calculs
+    public void updateStatsDisplay(CharacterDTO character) {
+        damageDone.setText(character.getDamageDone().toString());
+        damageReceived.setText(character.getDamageReceived().toString());
+        alliedDamage.setText(character.getAlliedDamage().toString()); // À adapter si pertinent
+        healDone.setText(character.getHealDone().toString());
+        healReceived.setText(character.getHealReceived().toString());
+        personalHeal.setText(character.getPersonalHeal().toString());
+        critical.setText(character.getCritical().toString());
+        failure.setText(character.getFailure().toString());
+        minionControlled.setText(character.getMinionControlled().toString());
+        minionKilled.setText(character.getMinionKilled().toString());
+        bossKilled.setText(character.getBossKilled().toString());
+        controlled.setText(character.getControlled().toString());
+        knockOut.setText(character.getKnockOut().toString());
+    }
+    //endregion
     //region Other Utilities
     public void setCharacterDetails(String firstName, String lastName, String _class, String subclass, Integer level,
-                                    String class2, String subclass2, Integer classLevel2, String id){
+                                    String class2, String subclass2, Integer classLevel2, String id) {
         this.characterId = id;
-        if ((lastName != null)) {
+        if (lastName != null) {
             characterName.setText(firstName.toUpperCase() + ' ' + lastName.toUpperCase());
         } else {
             characterName.setText(firstName.toUpperCase());
@@ -137,7 +153,7 @@ public class CharacterCardController {
         characterLevel.setText(level.toString());
         characterClass2.setText(class2);
         characterSubClass2.setText(subclass2);
-        if(classLevel2 == null) {
+        if (classLevel2 == null) {
             characterLevel2.setText(null);
         } else {
             characterLevel2.setText(classLevel2.toString());
@@ -153,7 +169,7 @@ public class CharacterCardController {
         imageView.setImage(image);
     }
 
-    private void applyCardStyle() {
+    void applyCardStyle() {
         if (characterNode != null) {
             CharacterDTO character = playerList.getPlayerById(characterId);
             if (character == null) {

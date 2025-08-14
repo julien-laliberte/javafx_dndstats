@@ -21,7 +21,7 @@ public class PlayerList implements Serializable {
 
     public PlayerList() {
         loadPlayers(); // Charger les joueurs existants au démarrage
-        sortPlayerByFirstName();
+        //sortPlayerByFirstName();
     }
 
     public List<CharacterDTO> getPlayers() {
@@ -29,9 +29,14 @@ public class PlayerList implements Serializable {
     }
 
     public void addPlayer(CharacterDTO character) {
+        for (CharacterDTO existing : players) {
+            if (existing.getId().equals(character.getId())) {
+                System.out.println("Joueur déjà existant : " + character.getFirstName());
+                return;
+            }
+        }
         players.add(character);
         sortPlayerByFirstName();
-        savePlayers();
         printPlayers();
     }
 
@@ -76,11 +81,10 @@ public class PlayerList implements Serializable {
                 }
             }
         }
-        sortPlayerByFirstName();
         savePlayers();
     }
 
-    private void sortPlayerByFirstName() {
+    public void sortPlayerByFirstName() {
         Collections.sort(
                 players, new Comparator<CharacterDTO>() {
                     @Override
@@ -90,6 +94,7 @@ public class PlayerList implements Serializable {
                 }
         );
         System.out.println("Nombre de personnages: " + players.size());
+        savePlayers();
     }
 
     private void savePlayers() {

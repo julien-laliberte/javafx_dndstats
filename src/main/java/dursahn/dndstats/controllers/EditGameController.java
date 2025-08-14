@@ -99,6 +99,8 @@ public class EditGameController {
             dmList.updateDM(dm);
         }
 
+
+
         mainController.redrawAllCards();
         closeView();
     }

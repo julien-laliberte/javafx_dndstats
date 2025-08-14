@@ -28,11 +28,10 @@ public class NpcList implements Serializable {
     public void addNpc(CharacterDTO character){
         npcs.add(character);
         sortNpcsByFirstName();
-        saveNPCS();
         printNpcs();
     }
 
-    public void updateNpcs(CharacterDTO udpate) throws FileNotFoundException {
+    public void updateNpcs(CharacterDTO udpate){
         for(int i=0 ; i < npcs.size(); i++){
             CharacterDTO current = npcs.get(i);
             if(current.getId().equals(udpate.getId())){
@@ -49,11 +48,10 @@ public class NpcList implements Serializable {
                 }
             }
         }
-        sortNpcsByFirstName();
         saveNPCS();
     }
 
-    private void sortNpcsByFirstName() {
+    public void sortNpcsByFirstName() {
         Collections.sort(
                 npcs, new Comparator<CharacterDTO>() {
                     @Override
@@ -62,6 +60,7 @@ public class NpcList implements Serializable {
                     }
                 }
         );
+        saveNPCS();
     }
 
     private void saveNPCS(){

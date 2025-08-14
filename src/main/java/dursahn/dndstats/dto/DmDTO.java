@@ -169,4 +169,17 @@ public class DmDTO implements Serializable {
         isVisible = visible;
     }
     //endregions
+
+    public void resetDm(){
+        this.damageDone = 0;
+        this.damageReceived = 0;
+        this.personalHeal = 0;
+        this.critical = 0;
+        this.failure = 0;
+        this.crowdControlled = 0;
+        this.minionLost = 0;
+        this.bossLost = 0;
+        this.playerControlled = 0;
+        this.playerKOs = 0;
+    }
 }

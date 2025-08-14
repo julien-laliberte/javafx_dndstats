@@ -36,27 +36,28 @@ public class DmCardController {
     private MainController mainController;
     private VBox dmNode;
     private FlowPane dmFlowPane;
+
     //region Constructors
-    public void SetDmList(DmList dmList){ this.dmList = dmList;}
+    public void SetDmList(DmList dmList) {
+        this.dmList = dmList;
+    }
+
     public void SetDmCard(VBox dmNode, FlowPane dmFlowPane, MainController mainController) {
         this.dmNode = dmNode;
         this.dmFlowPane = dmFlowPane;
         this.mainController = mainController;
-
     }
     //endregion
     //region Edit Button
-
     public void handleDmEdit(ActionEvent actionEvent) {
         System.out.println("Editing DM: " + dmName.getText());
         DmDTO dm = dmList.getDmById(dmId);
         showEditDM(dm);
     }
 
-    private void showEditDM(DmDTO dmDTO){
-        try{
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/dursahn/dndstats/views/view_dm.fxml"));
+    private void showEditDM(DmDTO dmDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dursahn/dndstats/views/view_dm.fxml"));
             VBox dialogPane = loader.load();
 
             ViewDmController dialogController = loader.getController();
@@ -76,30 +77,26 @@ public class DmCardController {
     }
     //endregion
     //region Put and delete
-    public void updateDm(DmDTO dm){
+    public void updateDm(DmDTO dm) {
         dmList.updateDM(dm);
-        setDmDetails(
-                dm.getName(),
-                dm.getSurname(),
-                dm.getId()
-        );
+        setDmDetails(dm.getName(), dm.getSurname(), dm.getId());
         applyCardStyle();
+        updateStatsDisplay(dm); // Mettre à jour les stats après modification
     }
 
-    public void deleteDM(DmDTO dm){
+    public void deleteDM(DmDTO dm) {
         dmFlowPane.getChildren().remove(dmNode);
         dmList.deleteDm(dm);
     }
-
     //endregion
-    //region Other utilities
-    public void setDmDetails(String name, String surname, String id){
+    //region Other Utilities
+    public void setDmDetails(String name, String surname, String id) {
         this.dmId = id;
         dmName.setText(name.toUpperCase());
-        dmSurname.setText(surname);
+        dmSurname.setText(surname != null ? surname.toUpperCase() : "");
         Image image = null;
         try {
-            String imagePath = "/dursahn/dndstats/images/" + name + ".png";
+            String imagePath = "/dursahn/dndstats/images/" + name.toLowerCase() + ".png";
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         } catch (NullPointerException e) {
             image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/dursahn/dndstats/images/default.png")));
@@ -107,10 +104,28 @@ public class DmCardController {
         }
         imageView.setImage(image);
     }
-    private void applyCardStyle() {
+
+    void applyCardStyle() {
         DmDTO dm = dmList.getDmById(dmId);
-        dmNode.setStyle("-fx-background-color: #" + dm.getColor() + "1A;" +
-                "-fx-border-color: #" + dm.getColor());
+        if (dmNode != null && dm != null) {
+            dmNode.setStyle("-fx-background-color: #" + dm.getColor() + "1A;" +
+                    "-fx-border-color: #" + dm.getColor());
+        }
+    }
+
+    public void updateStatsDisplay(DmDTO dm) {
+        if (dm != null) {
+            damageDone.setText(dm.getDamageDone().toString());
+            damageReceived.setText(dm.getDamageReceived().toString());
+            personalHeal.setText(dm.getPersonalHeal().toString());
+            critical.setText(dm.getCritical().toString());
+            failure.setText(dm.getFailure().toString());
+            minionControlled.setText(dm.getCrowdControlled().toString());
+            minionLost.setText(dm.getMinionLost().toString());
+            bossLost.setText(dm.getBossLost().toString());
+            playersKOs.setText(dm.getPlayerKOs().toString());
+            playersControlled.setText(dm.getPlayerControlled().toString());
+        }
     }
     //endregion
 }

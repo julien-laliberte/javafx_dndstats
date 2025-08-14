@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.TextField?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="dursahn.dndstats.controllers.MainController"
@@ -22,6 +23,7 @@
         <MFXButton text="Add Character" onAction="#handleAddCharacter" prefWidth="100.0"  HBox.hgrow="ALWAYS"/>
         <MFXButton text="Edit Game" onAction="#handleEditGame" prefWidth="100.0" HBox.hgrow="ALWAYS"/>
         <MFXButton text="Edit Characters" onAction="#handleEditCharacters" prefWidth="100.0" HBox.hgrow="ALWAYS"/>
+        <MFXButton text="Reset Game" onAction="#handleResetGame" prefWidth="100.0" HBox.hgrow="ALWAYS"/>
     </HBox>
 
     <!-- Calculator Section-->
@@ -33,11 +35,7 @@
                 <Label text="Joueurs" style="-fx-font-weight: bold"/>
             </HBox>
             <VBox fx:id="playerCheckboxList">
-                <CheckBox text="Dante"/>
-                <CheckBox text="Fenrick"/>
-                <CheckBox text="Marika"/>
-                <CheckBox text="Poppy"/>
-                <CheckBox text="Wyndra"/>
+
             </VBox>
         </VBox>
 
@@ -49,10 +47,7 @@
                 <Label text="NPCs" style="-fx-font-weight: bold"/>
             </HBox>
             <VBox fx:id="npcCheckboxList">
-                <CheckBox text="Alyssa"/>
-                <CheckBox text="Pluto"/>
-                <CheckBox text="Bard"/>
-                <CheckBox text="L'autre"/>
+
             </VBox>
         </VBox>
 
@@ -65,18 +60,21 @@
             </HBox>
             <RadioButton text="Dégâts fait" fx:id="degatFaitRB"/>
             <RadioButton text="Dégâts reçu" fx:id="degatRecuRB"/>
+            <RadioButton text="Dégât allié" fx:id="degatAllieRB"/>
             <RadioButton text="Soins faits" fx:id="soinsFaitRB"/>
             <RadioButton text="Soins reçu" fx:id="soinsRecuRB"/>
             <RadioButton text="Soins personnels" fx:id="soinsPersoRB"/>
-            <RadioButton text="Dégât allié" fx:id="degatAllieRB"/>
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />
 
         <!--Buttons 1-->
         <VBox alignment="CENTER" spacing="15">
-            <MFXButton text="Ajouter" prefWidth="80.0"  HBox.hgrow="ALWAYS"/>
-            <MFXButton text="Supprimer" prefWidth="80.0" HBox.hgrow="ALWAYS"/>
+            <Label text="Nombre:"/>
+            <TextField fx:id="number" text="0"/>
+            <Label text="Ennemis visés:"/>
+            <TextField fx:id="targets" text="1"/>
+            <MFXButton text="Calculer" onAction="#handleCalculate" prefWidth="80.0"  HBox.hgrow="ALWAYS"/>
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />
@@ -87,19 +85,22 @@
                 <Label text="DM" style="-fx-font-weight: bold"/>
             </HBox>
             <VBox fx:id="dmCheckboxList">
-            <CheckBox text="Jessica"/>
             </VBox>
         </VBox>
 
         <Region HBox.hgrow="ALWAYS" />
 
         <!--Operations-->
-        <VBox prefWidth="100.0" spacing="5">
+        <VBox prefWidth="150.0" spacing="5">
             <HBox alignment="CENTER">
                 <Label text="Operations" style="-fx-font-weight: bold"/>
             </HBox>
             <RadioButton text="Critique" fx:id="critiqueRB"/>
             <RadioButton text="Échec" fx:id="echecRB"/>
+            <RadioButton text="Ennemis contrôlé" fx:id="enemyControlledRB"/>
+            <RadioButton text="Ennemis tués" fx:id="enemyKilledRB"/>
+            <RadioButton text="Boss tués" fx:id="bossKilledRB"/>
+            <RadioButton text="Contrôlé" fx:id="controlledRB"/>
             <RadioButton text="KO" fx:id="koRB"/>
         </VBox>
 
@@ -107,8 +108,8 @@
 
         <!--Buttons 2-->
         <VBox alignment="CENTER" spacing="15">
-            <MFXButton text="Ajouter" prefWidth="80.0"  HBox.hgrow="ALWAYS"/>
-            <MFXButton text="Supprimer" prefWidth="80.0" HBox.hgrow="ALWAYS"/>
+            <MFXButton text="Ajouter" prefWidth="100.0"  onAction="#handleAddOpp2" HBox.hgrow="ALWAYS"/>
+            <MFXButton text="Supprimer" prefWidth="100.0" onAction="#handleReduceOpp2" HBox.hgrow="ALWAYS"/>
         </VBox>
     </HBox>
 
