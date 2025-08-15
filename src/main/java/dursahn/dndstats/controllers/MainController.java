@@ -5,6 +5,7 @@ import dursahn.dndstats.dto.DmDTO;
 import dursahn.dndstats.managers.DmList;
 import dursahn.dndstats.managers.NpcList;
 import dursahn.dndstats.managers.PlayerList;
+import dursahn.dndstats.service.Calcul;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,6 +60,16 @@ public class MainController {
     private List<CharacterDTO> activeNpc = new ArrayList<>();
     private List<DmDTO> activeDm = new ArrayList<>();
 
+    public List<CharacterDTO> getActivePlayer() {
+        return activePlayer;
+    }
+    public List<CharacterDTO> getActiveNpc() {
+        return activeNpc;
+    }
+    public List<DmDTO> getActiveDm() {
+        return activeDm;
+    }
+
     private Map<CheckBox, CharacterDTO> playerCheckBoxMap = new HashMap<>();
     private Map<CheckBox, CharacterDTO> npcCheckBoxMap = new HashMap<>();
     private Map<CheckBox, DmDTO> dmCheckBoxMap = new HashMap<>();
@@ -66,17 +77,17 @@ public class MainController {
     public Map<CheckBox, CharacterDTO> getPlayerCheckBoxMap() {
         return playerCheckBoxMap;
     }
-
     public Map<CheckBox, CharacterDTO> getNpcCheckBoxMap() {
         return npcCheckBoxMap;
     }
-
     public Map<CheckBox, DmDTO> getDmCheckBoxMap() {
         return dmCheckBoxMap;
     }
 
     private final ToggleGroup operationToggleGroup = new ToggleGroup();
     private final ToggleGroup operationToggleGroup2 = new ToggleGroup();
+
+    private Calcul calcul;
     //endregion
 
     @FXML
@@ -98,6 +109,12 @@ public class MainController {
         playerList = new PlayerList();
         npcList = new NpcList();
         dmList = new DmList();
+
+        calcul = new Calcul(playerList, npcList, dmList,
+                playerCheckBoxMap,
+                npcCheckBoxMap,
+                dmCheckBoxMap,
+                this);
 
         redrawAllCards();
     }
@@ -136,7 +153,7 @@ public class MainController {
             dialogController.setMainController(this);
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Modifier la partie");
+            dialogStage.setTitle("Éditer la partie");
             dialogStage.initModality(Modality.APPLICATION_MODAL);
 
             Scene scene = new Scene(dialogPane);
@@ -180,46 +197,27 @@ public class MainController {
             return;
         }
 
-        for (DmDTO currentDm: activeDm){
-            dm = currentDm;
-        }
-
         RadioButton selectedOperation = (RadioButton) operationToggleGroup.getSelectedToggle();
         String operation = selectedOperation.getText();
 
-        for (CheckBox checkBox : playerCheckBoxMap.keySet()) {
-            if (checkBox.isSelected()) {
-                CharacterDTO player = playerCheckBoxMap.get(checkBox);
-                player.setDamageDone(player.getDamageDone() + num * enemy);
-                playerList.updatePlayers(player);
-                updateCharacterCard(player);
-
-                dm.setDamageReceived(dm.getDamageReceived() + num * enemy);
-                dmList.updateDM(dm);
-                updateDmCard(dm);
-            }
-        }
-
-        if (!activeNpc.isEmpty()) {
-            for (CheckBox checkBox : npcCheckBoxMap.keySet()) {
-                if (checkBox.isSelected()) {
-                    CharacterDTO npc = npcCheckBoxMap.get(checkBox);
-                    npc.setDamageDone(npc.getDamageDone() + num * enemy);
-                    npcList.updateNpcs(npc);
-                    updateCharacterCard(npc);
-
-                    dm.setDamageReceived(dm.getDamageReceived() + num * enemy);
-                    dmList.updateDM(dm);
-                    updateDmCard(dm);
-                }
-            }
-        }
+        calcul.calculate(num * enemy, operation);
+        uncheckAll();
     }
 
     public void handleAddOpp2(ActionEvent actionEvent) {
+        RadioButton selectedOperation = (RadioButton) operationToggleGroup2.getSelectedToggle();
+        String operation = selectedOperation.getText();
+
+        calcul.calculate(1, operation);
+        uncheckAll();
     }
 
     public void handleReduceOpp2(ActionEvent actionEvent) {
+        RadioButton selectedOperation = (RadioButton) operationToggleGroup2.getSelectedToggle();
+        String operation = selectedOperation.getText();
+
+        calcul.calculate(-1, operation);
+        uncheckAll();
     }
     //endregion
     // region Operations interface
@@ -375,10 +373,15 @@ public class MainController {
         loadDM();
 
         redrawInterface(activePlayer, activeNpc, activeDm);
+        calcul.update(playerList, npcList, dmList,
+                playerCheckBoxMap,
+                npcCheckBoxMap,
+                dmCheckBoxMap,
+                this);
     }
 
     // Méthode pour mettre à jour une carte de personnage
-    private void updateCharacterCard(CharacterDTO character) {
+    public void updateCharacterCard(CharacterDTO character) {
         for (javafx.scene.Node node : playerListFlowPane.getChildren()) {
             if (node instanceof VBox) {
                 VBox card = (VBox) node;
@@ -404,7 +407,7 @@ public class MainController {
     }
 
     // Méthode pour mettre à jour une carte de DM
-    private void updateDmCard(DmDTO dm) {
+    public void updateDmCard(DmDTO dm) {
         for (javafx.scene.Node node : dmListFlowPane.getChildren()) {
             if (node instanceof VBox) {
                 VBox card = (VBox) node;
@@ -418,4 +421,28 @@ public class MainController {
         }
     }
     //endregion
+    // region Utilities
+    private void uncheckAll(){
+        for(CheckBox checkBox: playerCheckBoxMap.keySet()){
+            if(checkBox.isSelected()){
+                checkBox.setSelected(false);
+            }
+        }
+        for(CheckBox checkBox: npcCheckBoxMap.keySet()){
+            if(checkBox.isSelected()){
+                checkBox.setSelected(false);
+            }
+        }
+        for(CheckBox checkBox: dmCheckBoxMap.keySet()){
+            if(checkBox.isSelected()){
+                checkBox.setSelected(false);
+            }
+        }
+        number.setText("0");
+        targets.setText("1");
+    }
+
+
+
+    // endregion
 }

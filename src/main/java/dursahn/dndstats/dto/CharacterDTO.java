@@ -291,9 +291,7 @@ public class CharacterDTO implements Serializable {
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        if (buffs == null) {
-            buffs = 0; // valeur par défaut pour anciens objets
-            alliedDamage = 0;
-        }
+        if (buffs == null) buffs = 0; // valeur par défaut pour anciens objets
+        if (alliedDamage == null) alliedDamage = 0;
     }
 }
